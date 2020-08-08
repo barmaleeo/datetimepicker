@@ -52,6 +52,10 @@
       "last 1 safari version"
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/barmaleeo/datetimepicker"
+  },
   "devDependencies": {
     "webpack-cli": "^3.3.12"
   }
