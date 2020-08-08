@@ -61,7 +61,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 var DatetimepickerStyled = _styledComponents.default.div(_templateObject());
 
-var Datetimepicker = /*#__PURE__*/function (_Component) {
+var Index = /*#__PURE__*/function (_Component) {
   _inherits(Datetimepicker, _Component);
 
   var _super = _createSuper(Datetimepicker);
@@ -243,8 +243,8 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
   return Datetimepicker;
 }(_react.Component);
 
-exports.default = Datetimepicker;
+exports.default = Index;
 
-_defineProperty(Datetimepicker, "getHomeDate", function (value) {
+_defineProperty(Index, "getHomeDate", function (value) {
   return (0, _moment.default)(value).hour(0).minute(0).second(0).millisecond(0);
 });
