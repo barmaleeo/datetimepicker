@@ -86,17 +86,14 @@ var MonthList = /*#__PURE__*/function (_Component) {
   _createClass(MonthList, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.scrollRef.content.children[this.currentId].scrollIntoView({
-        block: 'center'
-      });
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState, snapshot) {
-      this.scrollRef.content.children[this.currentId].scrollIntoView({
-        block: 'center'
-      });
-    }
+      var content = this.scrollRef.content;
+      var current = content.children[this.currentId];
+      var parent = content.parentNode;
+      parent.scrollTop = current.offsetTop - (parent.clientHeight - current.offsetHeight) / 2;
+    } // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     this.scrollRef.content.children[this.currentId].scrollIntoView({block:'center'});
+    // }
+
   }, {
     key: "render",
     value: function render() {

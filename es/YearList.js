@@ -59,14 +59,14 @@ var YearList = /*#__PURE__*/function (_Component) {
 
     _this = _super.call.apply(_super, [this].concat(args));
 
-    _defineProperty(_assertThisInitialized(_this), "currentYearId", 25);
+    _defineProperty(_assertThisInitialized(_this), "currentId", 25);
 
     _defineProperty(_assertThisInitialized(_this), "renderYearItem", function (i, n) {
       var itemClass = 's-option';
 
       if (i.isSame(_this.props.selected, 'year')) {
         itemClass += ' i-current';
-        _this.currentYearId = n;
+        _this.currentId = n;
       }
 
       return /*#__PURE__*/_react.default.createElement("div", {
@@ -86,17 +86,14 @@ var YearList = /*#__PURE__*/function (_Component) {
   _createClass(YearList, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.scrollRef.content.children[this.currentYearId].scrollIntoView({
-        block: 'center'
-      });
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState, snapshot) {
-      this.scrollRef.content.children[this.currentYearId].scrollIntoView({
-        block: 'center'
-      });
-    }
+      var content = this.scrollRef.content;
+      var current = content.children[this.currentId];
+      var parent = content.parentNode;
+      parent.scrollTop = current.offsetTop - (parent.clientHeight - current.offsetHeight) / 2;
+    } // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     this.scrollRef.content.children[this.currentId].scrollIntoView({block:'center'});
+    // }
+
   }, {
     key: "render",
     value: function render() {
