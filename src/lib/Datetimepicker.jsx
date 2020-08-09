@@ -136,8 +136,9 @@ export default class Datetimepicker extends Component {
     static getDerivedStateFromProps(nextProps, prevState){
         const ns = {}
         //ns.selected = moment(ns.value).hour(0).minute(0).second(0).millisecond(0);
-        if(nextProps.value !== prevState.value){
-            if(!nextProps.value){
+        const nextValue = nextProps.data[nextProps.name];
+        if(nextValue !== prevState.value){
+            if(!nextValue){
                 ns.value = moment().hour(12).minute(15).second(0).millisecond(0)
             }else{
                 ns.value = moment(nextProps.value);
@@ -239,12 +240,12 @@ export default class Datetimepicker extends Component {
                         </div>
                         <div className="dtp-body">
                             <Month value={s.value} selected={s.selected}
-                                   dateMin={p.dateMin} dateMax={p.dateMax}
+                                   min={p.min} max={p.max}
                                    onChange={this.onChange}/>
                         </div>
                     </div>
                     <Timepicker value={s.value} selected={s.value} rows={6}
-                                dateMin={p.dateMin} dateMax={p.dateMax}
+                                dateMin={p.min} dateMax={p.max}
                                 min={p.timeMin} max={p.timeMax} step={p.timeStep}
                                 onChange={this.onChange}/>
                 </div>

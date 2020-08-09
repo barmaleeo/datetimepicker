@@ -217,15 +217,15 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/_react.default.createElement(_Month.default, {
         value: s.value,
         selected: s.selected,
-        dateMin: p.dateMin,
-        dateMax: p.dateMax,
+        min: p.min,
+        max: p.max,
         onChange: this.onChange
       }))), /*#__PURE__*/_react.default.createElement(_Timepicker.default, {
         value: s.value,
         selected: s.value,
         rows: 6,
-        dateMin: p.dateMin,
-        dateMax: p.dateMax,
+        dateMin: p.min,
+        dateMax: p.max,
         min: p.timeMin,
         max: p.timeMax,
         step: p.timeStep,
@@ -237,8 +237,10 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
     value: function getDerivedStateFromProps(nextProps, prevState) {
       var ns = {}; //ns.selected = moment(ns.value).hour(0).minute(0).second(0).millisecond(0);
 
-      if (nextProps.value !== prevState.value) {
-        if (!nextProps.value) {
+      var nextValue = nextProps.data[nextProps.name];
+
+      if (nextValue !== prevState.value) {
+        if (!nextValue) {
           ns.value = (0, _moment.default)().hour(12).minute(15).second(0).millisecond(0);
         } else {
           ns.value = (0, _moment.default)(nextProps.value);

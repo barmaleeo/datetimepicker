@@ -13,10 +13,11 @@ class App extends Component {
         const s= this.state;
         return (
             <div className="App">
-                <Datetimepicker sm onChange={this.onChange} value={s.value}
+                <Datetimepicker sm onChange={this.onChange}
+                                data={s} name={value}
                                 format="DD/MM/YYYY HH:mm"
-                                dateMin={moment().subtract(1, 'day')}
-                                dateMax={moment().add(1, 'day')}
+                                min={moment().subtract(1, 'day')}
+                                max={moment().add(1, 'day')}
                                 timeMin="08:00:00" timeMax="22:00:00" timeStep="15"/>
             </div>
         );
