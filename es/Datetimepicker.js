@@ -17,7 +17,9 @@ var _Timepicker = _interopRequireDefault(require("./Timepicker"));
 
 var _reactScrollbar = _interopRequireDefault(require("react-scrollbar"));
 
-var _rcTrigger = _interopRequireDefault(require("rc-trigger"));
+var _YearList = _interopRequireDefault(require("./YearList"));
+
+var _MonthList = _interopRequireDefault(require("./MonthList"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52,7 +54,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  //position: relative;\n  display: inline-block;\n  font-size: 14px;\n  .dtp-floating{\n    //position: absolute;\n    box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);\n    background: #fff;\n    border: 1px solid #ccc;\n    border-bottom-color:  #bbb;\n    color: #333;\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    padding: 8px;\n//    padding-left: 0;\n    padding-top: 2px;\n    z-index: 9999;\n    box-sizing: border-box;\n    display: flex;\n    //display: none;\n    >div:last-child{\n      margin-left: 8px;\n    }\n  }\n  &:hover{\n    .dtp-floating{\n      //display: flex;\n    }\n  }\n\n  \n  .dtp-img-btn{\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAeCAYAAADaW7vzAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Q0NBRjI1NjM0M0UwMTFFNDk4NkFGMzJFQkQzQjEwRUIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Q0NBRjI1NjQ0M0UwMTFFNDk4NkFGMzJFQkQzQjEwRUIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDQ0FGMjU2MTQzRTAxMUU0OTg2QUYzMkVCRDNCMTBFQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDQ0FGMjU2MjQzRTAxMUU0OTg2QUYzMkVCRDNCMTBFQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoNEP54AAAIOSURBVHja7Jq9TsMwEMcxrZD4WpBYeKUCe+kTMCACHZh4BFfHO/AAIHZGFhYkBBsSEqxsLCAgXKhbXYOTxh9pfJVP+qutnZ5s/5Lz2Y5I03QhWji2GIcgAokWgfCxNvcOCCGKqiSqhUp0laHOne05vdEyGMfkdxJDVjgwDlEQgYQBgx+ULJaWSXXS6r/ER5FBVR8VfGftTKcITNs+a1XpcFoExREIDF14AVIFxgQUS+h520cdud6wNkC0UBw6BCO/HoCYwBhD8QCkQ/x1mwDyD4plh4D6DDV0TAGyo4HcawLIBBSLDkHeH0Mg2yVP3l4TQMZQDDsEOl/MgHQqhMNuE0D+oBh0CIr8MAKyazBH9WyBuKxDWgbXfjNf32TZ1KWm/Ap1oSk/R53UtQ5xTh3LUlMmT8gt6g51Q9p+SobxgJQ/qmsfZhWywGFSl0yBjCLJCMgXail3b7+rumdVJ2YRss4cN+r6qAHDkPWjPjdJCF4n9RmAD/V9A/Wp4NQassDjwlB6XBiCxcJQWmZZb8THFilfy/lfrTvLghq2TqTHrRMTKNJ0sIhdo15RT+RpyWwFdY96UZ/LdQKBGjcXpcc1AlSFEfLmouD+1knuxBDUVrvOBmoOC/rEcN7OQxKVeJTCiAdUzUJhA2Oez9QTkp72OTVcxDcXY8iKNkxGAJXmJCOQwOa6dhyXsOa6XwEGAKdeb5ET3rQdAAAAAElFTkSuQmCC);\n    background-color: transparent;\n    background-repeat: no-repeat;\n    border: 0 none;\n    cursor: pointer;\n    display: block;\n    height: 30px;\n    opacity: 0.5;\n    -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)\";\n    outline: medium none;\n    overflow: hidden;\n    padding: 0;\n    position: relative;\n    text-indent: 100%;\n    white-space: nowrap;\n    width: 20px;\n    min-width: 0;\n    &.b-prev{\n      background-position: -20px 0;\n    }\n    &.b-caret{\n      background-position: -92px -19px;\n      display: inline-block;\n      width: 9px;\n      height: 20px;\n      vertical-align: middle;\n    }\n    &.b-home{\n      background-position: -70px 0;\n    }\n    &:hover{\n      opacity: 1;\n    }\n    \n  }\n  .dtp-header{\n    width: 100%;\n    display: flex;\n    align-items: center;\n    .f-label{\n      position: relative;\n      padding: 5px 3px;\n      line-height: 20px;\n      font-weight: bold;\n      color: rgb(51,51,51);\n      cursor: pointer;\n      &.h-month{\n        flex:1;\n        text-align: right;\n      }\n      .f-l-scrolling{\n        display: none;\n        position: absolute;\n        background: #fff;\n        width: 100%;\n        height: 155px;\n        z-index: 10;\n        padding-right: 10px;\n        padding-bottom: 10px;\n        border: 1px solid #ccc;\n        box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);\n        .s-option{\n          padding: 2px 10px 2px 5px;\n\n          &:hover{\n            color: #fff !important;\n            background: #ff8000 !important;\n            box-shadow: none !important;\n          }\n          &.i-current{\n            background: #33aaff;\n            box-shadow: #178fe5 0 1px 3px 0 inset;\n            color: #fff;\n            font-weight: 700;\n          }\n        }\n      }\n      &:hover{\n        text-decoration: underline;\n        .dtp-img-btn{\n          opacity: 1.0;\n        }\n        .f-l-scrolling{\n          display: block;\n        }\n      }\n    }\n  }\n  .dtp-body{\n    display: flex;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  position: relative;\n  display: inline-block;\n  font-size: 14px;\n  .dtp-floating{\n    position: absolute;\n    box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);\n    background: #fff;\n    border: 1px solid #ccc;\n    border-bottom-color:  #bbb;\n    color: #333;\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    padding: 8px;\n//    padding-left: 0;\n    padding-top: 2px;\n    z-index: 9999;\n    box-sizing: border-box;\n    display: flex;\n    display: none;\n    >div:last-child{\n      margin-left: 8px;\n    }\n  }\n  &:hover{\n    .dtp-floating{\n      display: flex;\n    }\n  }\n\n  \n  .dtp-img-btn{\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAeCAYAAADaW7vzAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Q0NBRjI1NjM0M0UwMTFFNDk4NkFGMzJFQkQzQjEwRUIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Q0NBRjI1NjQ0M0UwMTFFNDk4NkFGMzJFQkQzQjEwRUIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDQ0FGMjU2MTQzRTAxMUU0OTg2QUYzMkVCRDNCMTBFQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDQ0FGMjU2MjQzRTAxMUU0OTg2QUYzMkVCRDNCMTBFQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoNEP54AAAIOSURBVHja7Jq9TsMwEMcxrZD4WpBYeKUCe+kTMCACHZh4BFfHO/AAIHZGFhYkBBsSEqxsLCAgXKhbXYOTxh9pfJVP+qutnZ5s/5Lz2Y5I03QhWji2GIcgAokWgfCxNvcOCCGKqiSqhUp0laHOne05vdEyGMfkdxJDVjgwDlEQgYQBgx+ULJaWSXXS6r/ER5FBVR8VfGftTKcITNs+a1XpcFoExREIDF14AVIFxgQUS+h520cdud6wNkC0UBw6BCO/HoCYwBhD8QCkQ/x1mwDyD4plh4D6DDV0TAGyo4HcawLIBBSLDkHeH0Mg2yVP3l4TQMZQDDsEOl/MgHQqhMNuE0D+oBh0CIr8MAKyazBH9WyBuKxDWgbXfjNf32TZ1KWm/Ap1oSk/R53UtQ5xTh3LUlMmT8gt6g51Q9p+SobxgJQ/qmsfZhWywGFSl0yBjCLJCMgXail3b7+rumdVJ2YRss4cN+r6qAHDkPWjPjdJCF4n9RmAD/V9A/Wp4NQassDjwlB6XBiCxcJQWmZZb8THFilfy/lfrTvLghq2TqTHrRMTKNJ0sIhdo15RT+RpyWwFdY96UZ/LdQKBGjcXpcc1AlSFEfLmouD+1knuxBDUVrvOBmoOC/rEcN7OQxKVeJTCiAdUzUJhA2Oez9QTkp72OTVcxDcXY8iKNkxGAJXmJCOQwOa6dhyXsOa6XwEGAKdeb5ET3rQdAAAAAElFTkSuQmCC);\n    background-color: transparent;\n    background-repeat: no-repeat;\n    border: 0 none;\n    cursor: pointer;\n    display: block;\n    height: 30px;\n    opacity: 0.5;\n    -ms-filter: \"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)\";\n    outline: medium none;\n    overflow: hidden;\n    padding: 0;\n    position: relative;\n    text-indent: 100%;\n    white-space: nowrap;\n    width: 20px;\n    min-width: 0;\n    &.b-prev{\n      background-position: -20px 0;\n    }\n    &.b-caret{\n      background-position: -92px -19px;\n      display: inline-block;\n      width: 9px;\n      height: 20px;\n      vertical-align: middle;\n    }\n    &.b-home{\n      background-position: -70px 0;\n    }\n    &:hover{\n      opacity: 1;\n    }\n    \n  }\n  .dtp-header{\n    width: 100%;\n    display: flex;\n    align-items: center;\n    .f-label{\n      position: relative;\n      padding: 5px 3px;\n      line-height: 20px;\n      font-weight: bold;\n      color: rgb(51,51,51);\n      cursor: pointer;\n      &.h-month{\n        flex:1;\n        text-align: right;\n      }\n      .f-l-scrolling{\n        display: none;\n        position: absolute;\n        background: #fff;\n        width: 100%;\n        height: 155px;\n        z-index: 10;\n        padding-right: 10px;\n        padding-bottom: 10px;\n        border: 1px solid #ccc;\n        box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);\n        .s-option{\n          padding: 2px 10px 2px 5px;\n\n          &:hover{\n            color: #fff !important;\n            background: #ff8000 !important;\n            box-shadow: none !important;\n          }\n          &.i-current{\n            background: #33aaff;\n            box-shadow: #178fe5 0 1px 3px 0 inset;\n            color: #fff;\n            font-weight: 700;\n          }\n        }\n      }\n      &:hover{\n        text-decoration: underline;\n        .dtp-img-btn{\n          opacity: 1.0;\n        }\n        .f-l-scrolling{\n          display: block;\n        }\n      }\n    }\n  }\n  .dtp-body{\n    display: flex;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -111,53 +113,12 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "renderMonthItem", function (i, n) {
-      var itemClass = 's-option';
-
-      if (i.isSame(_this.state.selected, 'month')) {
-        itemClass += ' i-current';
-      }
-
-      return /*#__PURE__*/_react.default.createElement("div", {
-        key: n,
-        className: itemClass,
-        onClick: function onClick(e) {
-          _this.setState({
-            selected: i
-          });
-        }
-      }, i.format('MMMM'));
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "renderYearItem", function (i, n) {
-      var itemClass = 's-option';
-
-      if (i.isSame(_this.state.selected, 'year')) {
-        itemClass += ' i-current';
-      }
-
-      return /*#__PURE__*/_react.default.createElement("div", {
-        key: n,
-        className: itemClass,
-        onClick: function onClick(e) {
-          _this.setState({
-            selected: i
-          });
-        }
-      }, i.format('YYYY'));
-    });
-
     return _this;
   }
 
   _createClass(Datetimepicker, [{
     key: "componentDidMount",
-    value: function componentDidMount() {
-      //const self = this;
-      setTimeout(function () {// self.yearRef.scrollYTo('3000')
-        // self.yearRef.scrollBottom()
-      }, 0);
-    }
+    value: function componentDidMount() {}
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState, snapshot) {
@@ -170,86 +131,95 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
 
       var p = this.props;
       var s = this.state;
-      var months = [];
-
-      for (var i = 0; i < 12; i++) {
-        months.push((0, _moment.default)(s.selected).month(i));
-      }
-
-      var years = [];
-
-      for (var _i = s.selected.year() - 50; _i < s.selected.year() + 50; _i++) {
-        years.push((0, _moment.default)(s.selected).year(_i));
-      }
-
       var max = p.max ? (0, _moment.default)(p.max) : null;
       var min = p.min ? (0, _moment.default)(p.min) : null;
-      return /*#__PURE__*/_react.default.createElement(_rcTrigger.default, {
-        className: "dtp-floating",
-        action: ['click'],
-        popupAlign: {
-          points: ['tl', 'bl'],
-          offset: [0, 3]
-        },
-        popup: /*#__PURE__*/_react.default.createElement(DatetimepickerStyled, null, /*#__PURE__*/_react.default.createElement("div", {
-          className: "dtp-floating"
-        }, /*#__PURE__*/_react.default.createElement("div", {
-          className: "dtp-f-date"
-        }, /*#__PURE__*/_react.default.createElement("div", {
-          className: "dtp-header"
-        }, /*#__PURE__*/_react.default.createElement("button", {
-          className: "dtp-img-btn b-prev",
-          onClick: function onClick(e) {
-            _this2.setState({
-              selected: (0, _moment.default)(s.selected).subtract(1, 'month')
-            });
-          }
-        }), /*#__PURE__*/_react.default.createElement("button", {
-          className: "dtp-img-btn b-home",
-          onClick: this.onClickHome
-        }), /*#__PURE__*/_react.default.createElement("div", {
-          className: "f-label h-month"
-        }, /*#__PURE__*/_react.default.createElement("span", null, s.selected.format('MMMM')), /*#__PURE__*/_react.default.createElement("i", {
-          className: "dtp-img-btn b-caret"
-        }), /*#__PURE__*/_react.default.createElement(_reactScrollbar.default, {
-          className: "f-l-scrolling h-months"
-        }, months.map(this.renderMonthItem))), /*#__PURE__*/_react.default.createElement("div", {
-          className: "f-label f-year"
-        }, /*#__PURE__*/_react.default.createElement("span", null, s.selected.format('YYYY')), /*#__PURE__*/_react.default.createElement("i", {
-          className: "dtp-img-btn b-caret"
-        }), /*#__PURE__*/_react.default.createElement(_reactScrollbar.default, {
-          className: "f-l-scrolling h-months",
-          ref: function ref(e) {
-            _this2.yearRef = e;
-          }
-        }, years.map(this.renderYearItem))), /*#__PURE__*/_react.default.createElement("button", {
-          className: "dtp-img-btn b-next",
-          onClick: function onClick(e) {
-            _this2.setState({
-              selected: (0, _moment.default)(s.selected).add(1, 'month')
-            });
-          }
-        })), /*#__PURE__*/_react.default.createElement("div", {
-          className: "dtp-body"
-        }, /*#__PURE__*/_react.default.createElement(_Month.default, {
-          value: s.value,
-          selected: s.selected,
-          min: min,
-          max: max,
-          onChange: this.onChange
-        }))), /*#__PURE__*/_react.default.createElement(_Timepicker.default, {
-          value: s.value,
-          selected: s.value,
-          rows: 6,
-          dateMin: min,
-          dateMax: max,
-          min: p.timeMin,
-          max: p.timeMax,
-          step: p.timeStep,
-          onChange: this.onChange
-        })))
+      return /*#__PURE__*/_react.default.createElement(DatetimepickerStyled, {
+        className: 'input-group' + (p.sm ? ' input-group-sm' : '')
       }, /*#__PURE__*/_react.default.createElement("input", _extends({}, p.inputProps, {
-        value: p.displayFormat ? s.value.format(p.displayFormat) : s.value.toString()
+        value: p.displayFormat ? s.value.format(p.displayFormat) : s.value.toString(),
+        onFocus: function onFocus(e) {
+          _this2.setState({
+            visible: true
+          });
+        },
+        onMouseEnter: function onMouseEnter(e) {
+          _this2.setState({
+            visible: true
+          });
+        }
+      })), s.visible && /*#__PURE__*/_react.default.createElement("div", {
+        className: "dtp-floating"
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        className: "dtp-f-date"
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        className: "dtp-header"
+      }, /*#__PURE__*/_react.default.createElement("button", {
+        className: "dtp-img-btn b-prev",
+        onClick: function onClick(e) {
+          _this2.setState({
+            selected: (0, _moment.default)(s.selected).subtract(1, 'month')
+          });
+        }
+      }), /*#__PURE__*/_react.default.createElement("button", {
+        className: "dtp-img-btn b-home",
+        onClick: this.onClickHome
+      }), /*#__PURE__*/_react.default.createElement("div", {
+        className: "f-label h-month",
+        onMouseEnter: function onMouseEnter(e) {
+          _this2.setState({
+            monthActive: true
+          });
+        },
+        onTouchStart: function onTouchStart(e) {
+          _this2.setState({
+            monthActive: true
+          });
+        }
+      }, /*#__PURE__*/_react.default.createElement("span", null, s.selected.format('MMMM')), /*#__PURE__*/_react.default.createElement("i", {
+        className: "dtp-img-btn b-caret"
+      }), s.monthActive && /*#__PURE__*/_react.default.createElement(_MonthList.default, {
+        selected: s.selected
+      })), /*#__PURE__*/_react.default.createElement("div", {
+        className: "f-label f-year",
+        onMouseEnter: function onMouseEnter(e) {
+          _this2.setState({
+            yearActive: true
+          });
+        },
+        onTouchStart: function onTouchStart(e) {
+          _this2.setState({
+            yearActive: true
+          });
+        }
+      }, /*#__PURE__*/_react.default.createElement("span", null, s.selected.format('YYYY')), /*#__PURE__*/_react.default.createElement("i", {
+        className: "dtp-img-btn b-caret"
+      }), s.yearActive && /*#__PURE__*/_react.default.createElement(_YearList.default, {
+        selected: s.selected
+      })), /*#__PURE__*/_react.default.createElement("button", {
+        className: "dtp-img-btn b-next",
+        onClick: function onClick(e) {
+          _this2.setState({
+            selected: (0, _moment.default)(s.selected).add(1, 'month')
+          });
+        }
+      })), /*#__PURE__*/_react.default.createElement("div", {
+        className: "dtp-body"
+      }, /*#__PURE__*/_react.default.createElement(_Month.default, {
+        value: s.value,
+        selected: s.selected,
+        min: min,
+        max: max,
+        onChange: this.onChange
+      }))), /*#__PURE__*/_react.default.createElement(_Timepicker.default, {
+        value: s.value,
+        selected: s.value,
+        rows: 6,
+        dateMin: min,
+        dateMax: max,
+        min: p.timeMin,
+        max: p.timeMax,
+        step: p.timeStep,
+        onChange: this.onChange
       })));
     }
   }], [{

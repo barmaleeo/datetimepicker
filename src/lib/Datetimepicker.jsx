@@ -4,16 +4,16 @@ import moment from 'moment';
 import Month from "./Month";
 import Timepicker from "./Timepicker";
 import ScrollArea from 'react-scrollbar';
-import Trigger from 'rc-trigger';
-
+import YearList from "./YearList";
+import MonthList from "./MonthList";
 
 
 const DatetimepickerStyled = styled.div`
-  //position: relative;
+  position: relative;
   display: inline-block;
   font-size: 14px;
   .dtp-floating{
-    //position: absolute;
+    position: absolute;
     box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);
     background: #fff;
     border: 1px solid #ccc;
@@ -26,14 +26,14 @@ const DatetimepickerStyled = styled.div`
     z-index: 9999;
     box-sizing: border-box;
     display: flex;
-    //display: none;
+    display: none;
     >div:last-child{
       margin-left: 8px;
     }
   }
   &:hover{
     .dtp-floating{
-      //display: flex;
+      display: flex;
     }
   }
 
@@ -156,12 +156,7 @@ export default class Datetimepicker extends Component {
         }
     }
     componentDidMount() {
-        //const self = this;
-        setTimeout(()=>{
-            // self.yearRef.scrollYTo('3000')
-            // self.yearRef.scrollBottom()
 
-        }, 0)
     }
 
     static getHomeDate = (value) => {
@@ -187,98 +182,63 @@ export default class Datetimepicker extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log('did update')
     }
-    renderMonthItem = (i, n) => {
-        let itemClass = 's-option';
-        if(i.isSame(this.state.selected, 'month')){
-            itemClass += ' i-current';
-        }
-        return (
-            <div key={n} className={itemClass}
-                 onClick={e=>{this.setState({selected:i})}}>
-                {i.format('MMMM')}
-            </div>
-        )
-    }
-    renderYearItem = (i, n) => {
-        let itemClass = 's-option';
-        if(i.isSame(this.state.selected, 'year')){
-            itemClass += ' i-current';
-        }
-        return (
-            <div key={n} className={itemClass}
-                 onClick={e=>{this.setState({selected:i})}}>
-                {i.format('YYYY')}
-            </div>
-        )
-    }
 
     render() {
         const p = this.props;
         const s = this.state;
-        const months = [];
-        for (let i = 0; i<12;i++){
-            months.push(moment(s.selected).month(i))
-        }
-        const years = [];
-        for (let i = s.selected.year() - 50; i<s.selected.year() + 50;i++){
-            years.push(moment(s.selected).year(i))
-        }
         const max = p.max?moment(p.max):null;
         const min = p.min?moment(p.min):null;
         return (
-                <Trigger className="dtp-floating" action={['click']}
-                         popupAlign={{
-                             points: ['tl', 'bl'],
-                             offset: [0, 3]
-                         }}
-                         popup={
-                             <DatetimepickerStyled>
-                                 <div className="dtp-floating">
-                                    <div className="dtp-f-date">
-                            <div className="dtp-header">
-                                <button className="dtp-img-btn b-prev"
-                                        onClick={e => {
-                                            this.setState({selected: moment(s.selected).subtract(1, 'month')})
-                                        }}/>
-                                <button className="dtp-img-btn b-home"
-                                        onClick={this.onClickHome}/>
-                                <div className="f-label h-month">
-                                    <span>{s.selected.format('MMMM')}</span>
-                                    <i className="dtp-img-btn b-caret"/>
-                                    <ScrollArea className="f-l-scrolling h-months">
-                                        {months.map(this.renderMonthItem)}
-                                    </ScrollArea>
-                                </div>
-                                <div className="f-label f-year">
-                                    <span>{s.selected.format('YYYY')}</span>
-                                    <i className="dtp-img-btn b-caret"/>
-                                    <ScrollArea className="f-l-scrolling h-months"
-                                                ref={e => {
-                                                    this.yearRef = e
-                                                }}>
-                                        {years.map(this.renderYearItem)}
-                                    </ScrollArea>
-                                </div>
-                                <button className="dtp-img-btn b-next"
-                                        onClick={e => {
-                                            this.setState({selected: moment(s.selected).add(1, 'month')})
-                                        }}/>
+            <DatetimepickerStyled className={'input-group' + (p.sm?' input-group-sm':'')}>
+                <input {...p.inputProps} value={p.displayFormat?s.value.format(p.displayFormat):s.value.toString()}
+                       onFocus={e=>{this.setState({visible:true})}}
+                       onMouseEnter={e=>{this.setState({visible:true})}}/>
+                {s.visible &&
+                <div className="dtp-floating">
+                    <div className="dtp-f-date">
+                        <div className="dtp-header">
+                            <button className="dtp-img-btn b-prev"
+                                    onClick={e => {
+                                        this.setState({selected: moment(s.selected).subtract(1, 'month')})
+                                    }}/>
+                            <button className="dtp-img-btn b-home"
+                                    onClick={this.onClickHome}/>
+                            <div className="f-label h-month"
+                                 onMouseEnter={e => {this.setState({monthActive:true})}}
+                                 onTouchStart={e => {this.setState({monthActive:true})}}>
+                                <span>{s.selected.format('MMMM')}</span>
+                                <i className="dtp-img-btn b-caret"/>
+                                {s.monthActive &&
+                                    <MonthList selected={s.selected}/>
+                                }
                             </div>
-                            <div className="dtp-body">
-                                <Month value={s.value} selected={s.selected}
-                                       min={min} max={max}
-                                       onChange={this.onChange}/>
+                            <div className="f-label f-year"
+                                 onMouseEnter={e => {this.setState({yearActive:true})}}
+                                 onTouchStart={e => {this.setState({yearActive:true})}}>
+                                <span>{s.selected.format('YYYY')}</span>
+                                <i className="dtp-img-btn b-caret"/>
+                                {s.yearActive &&
+                                    <YearList selected={s.selected}/>
+                                }
                             </div>
+                            <button className="dtp-img-btn b-next"
+                                    onClick={e => {
+                                        this.setState({selected: moment(s.selected).add(1, 'month')})
+                                    }}/>
                         </div>
-                                        <Timepicker value={s.value} selected={s.value} rows={6}
-                                                    dateMin={min} dateMax={max}
-                                                    min={p.timeMin} max={p.timeMax} step={p.timeStep}
-                                                    onChange={this.onChange}/>
-                                 </div>
-                             </DatetimepickerStyled>
-                }>
-                    <input {...p.inputProps} value={p.displayFormat?s.value.format(p.displayFormat):s.value.toString()}/>
-                </Trigger>
+                        <div className="dtp-body">
+                            <Month value={s.value} selected={s.selected}
+                                   min={min} max={max}
+                                   onChange={this.onChange}/>
+                        </div>
+                    </div>
+                    <Timepicker value={s.value} selected={s.value} rows={6}
+                                dateMin={min} dateMax={max}
+                                min={p.timeMin} max={p.timeMax} step={p.timeStep}
+                                onChange={this.onChange}/>
+                </div>
+                }
+            </DatetimepickerStyled>
         )
     }
 }
