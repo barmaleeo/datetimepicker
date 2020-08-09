@@ -120,7 +120,7 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
   _createClass(Datetimepicker, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var height = this.inputRef.size;
+      var height = this.inputRef.offsetHeight;
       this.setState({
         top: height
       });

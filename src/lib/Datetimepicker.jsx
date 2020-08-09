@@ -156,7 +156,7 @@ export default class Datetimepicker extends Component {
         }
     }
     componentDidMount() {
-        const height = this.inputRef.size;
+        const height = this.inputRef.offsetHeight;
         this.setState({top: height})
     }
 
