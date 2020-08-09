@@ -114,6 +114,10 @@ const DatetimepickerStyled = styled.div`
             color: #fff;
             font-weight: 700;
           }
+          &.i-disabled{
+            cursor: default;
+            opacity: 0.5;
+          }
         }
       }
       &:hover{
@@ -211,7 +215,7 @@ export default class Datetimepicker extends Component {
                                 <span>{s.selected.format('MMMM')}</span>
                                 <i className="dtp-img-btn b-caret"/>
                                 {s.monthActive &&
-                                    <MonthList selected={s.selected}/>
+                                    <MonthList selected={s.selected} min={min} max={max}/>
                                 }
                             </div>
                             <div className="f-label f-year"
@@ -220,7 +224,7 @@ export default class Datetimepicker extends Component {
                                 <span>{s.selected.format('YYYY')}</span>
                                 <i className="dtp-img-btn b-caret"/>
                                 {s.yearActive &&
-                                    <YearList selected={s.selected}/>
+                                    <YearList selected={s.selected} min={min} max={max}/>
                                 }
                             </div>
                             <button className="dtp-img-btn b-next"

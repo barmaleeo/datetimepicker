@@ -11,19 +11,24 @@ export default class YearList extends Component {
         const parent = content.parentNode;
         parent.scrollTop = current.offsetTop - (parent.clientHeight - current.offsetHeight)/2;
     }
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     this.scrollRef.content.children[this.currentId].scrollIntoView({block:'center'});
-    // }
-    currentId = 25;
+    currentId = 0;
     renderYearItem = (i, n) => {
+        const p = this.props;
         let itemClass = 's-option';
+        let onClick = e => {this.setState({selected:i})}
         if(i.isSame(this.props.selected, 'year')){
             itemClass += ' i-current';
             this.currentId = n
         }
+        if((p.min && i.isBefore(p.min, 'year'))
+            || (p.max && i.isAfter(p.max, 'year'))
+        ){
+            itemClass += ' i-disabled';
+            onClick = null;
+        }
         return (
             <div key={n} className={itemClass}
-                 onClick={e=>{this.setState({selected:i})}}>
+                 onClick={onClick}>
                 {i.format('YYYY')}
             </div>
         )

@@ -16,14 +16,23 @@ export default class MonthList extends Component {
     // }
     currentId = 6;
     renderItem = (i, n) => {
+        const p = this.props;
         let itemClass = 's-option';
+        let onClick = e => {this.setState({selected:i})}
         if(i.isSame(this.props.selected, 'month')){
             itemClass += ' i-current';
             this.currentId = n;
         }
+        if((p.min && i.isBefore(p.min, 'month'))
+            || (p.max && i.isAfter(p.max, 'month'))
+        ){
+            itemClass += ' i-disabled';
+            onClick = null;
+        }
+
         return (
             <div key={n} className={itemClass}
-                 onClick={e=>{this.setState({selected:i})}}>
+                 onClick={onClick}>
                 {i.format('MMMM')}
             </div>
         )

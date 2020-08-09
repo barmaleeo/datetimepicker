@@ -62,21 +62,29 @@ var MonthList = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "currentId", 6);
 
     _defineProperty(_assertThisInitialized(_this), "renderItem", function (i, n) {
+      var p = _this.props;
       var itemClass = 's-option';
+
+      var onClick = function onClick(e) {
+        _this.setState({
+          selected: i
+        });
+      };
 
       if (i.isSame(_this.props.selected, 'month')) {
         itemClass += ' i-current';
         _this.currentId = n;
       }
 
+      if (p.min && i.isBefore(p.min, 'month') || p.max && i.isAfter(p.max, 'month')) {
+        itemClass += ' i-disabled';
+        onClick = null;
+      }
+
       return /*#__PURE__*/_react.default.createElement("div", {
         key: n,
         className: itemClass,
-        onClick: function onClick(e) {
-          _this.setState({
-            selected: i
-          });
-        }
+        onClick: onClick
       }, i.format('MMMM'));
     });
 

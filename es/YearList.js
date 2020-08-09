@@ -59,24 +59,32 @@ var YearList = /*#__PURE__*/function (_Component) {
 
     _this = _super.call.apply(_super, [this].concat(args));
 
-    _defineProperty(_assertThisInitialized(_this), "currentId", 25);
+    _defineProperty(_assertThisInitialized(_this), "currentId", 0);
 
     _defineProperty(_assertThisInitialized(_this), "renderYearItem", function (i, n) {
+      var p = _this.props;
       var itemClass = 's-option';
+
+      var onClick = function onClick(e) {
+        _this.setState({
+          selected: i
+        });
+      };
 
       if (i.isSame(_this.props.selected, 'year')) {
         itemClass += ' i-current';
         _this.currentId = n;
       }
 
+      if (p.min && i.isBefore(p.min, 'year') || p.max && i.isAfter(p.max, 'year')) {
+        itemClass += ' i-disabled';
+        onClick = null;
+      }
+
       return /*#__PURE__*/_react.default.createElement("div", {
         key: n,
         className: itemClass,
-        onClick: function onClick(e) {
-          _this.setState({
-            selected: i
-          });
-        }
+        onClick: onClick
       }, i.format('YYYY'));
     });
 
@@ -90,10 +98,7 @@ var YearList = /*#__PURE__*/function (_Component) {
       var current = content.children[this.currentId];
       var parent = content.parentNode;
       parent.scrollTop = current.offsetTop - (parent.clientHeight - current.offsetHeight) / 2;
-    } // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     this.scrollRef.content.children[this.currentId].scrollIntoView({block:'center'});
-    // }
-
+    }
   }, {
     key: "render",
     value: function render() {
