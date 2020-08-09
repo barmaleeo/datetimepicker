@@ -2,11 +2,12 @@ import React,{Component} from 'react';
 import './App.css';
 import Datetimepicker from "./lib/Datetimepicker";
 import moment from "moment";
+import './lib/style.css';
 
 class App extends Component {
-    state = {value: moment()}
-    onChange = (name, value) => {
-        console.log(name, value)
+    state = {value: moment().minute(45).second(0).millisecond(0)}
+    onChange = (value) => {
+        console.log(value)
         this.setState({value: value});
     }
     render() {

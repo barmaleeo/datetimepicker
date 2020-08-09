@@ -96,11 +96,16 @@ const TimepickerStyled = styled.div`
 
 
 export default class Timepicker extends Component {
-    renderItem(i){
+    componentDidMount() {
+        this.scrollRef.content.children[this.current].scrollIntoView({block:'center'});
+    }
+    current = 0;
+    renderItem = (i, n) => {
         let itemClass = 'tp-item';
         let onClick= this.props.onChange.bind(this, i);
         if(this.props.value.isSame(i)){
             itemClass += ' i-current';
+            this.current = n;
         }
         if(this.props.dateMin && i.isBefore(this.props.dateMin)){
             itemClass += ' i-disabled';
@@ -110,7 +115,7 @@ export default class Timepicker extends Component {
             onClick = null;
         }
         return (
-            <div className={itemClass}
+            <div key={n} className={itemClass}
                  onClick={onClick}>
                 {i.format('HH:mm')}
             </div>
@@ -148,14 +153,16 @@ export default class Timepicker extends Component {
 
         while(time.isSameOrBefore(maxTime)){
             times.push(time)
-            time = moment(time).add(p.timeStep>0?p.timeStep:60, 'minutes');
+            time = moment(time).add(p.step>0?p.step:60, 'minutes');
         }
         return (
             <TimepickerStyled className="">
-                <button className="dtp-img-btn b-top"/>
-                <ScrollArea className="tp-scroll" style={{maxHeight: (p.rows*26-1) +'px'}}
+                <button className="dtp-img-btn b-top" />
+                <ScrollArea className="tp-scroll"
+                            ref={e=>{this.scrollRef = window.scrollRef = e}}
+                            style={{maxHeight: (p.rows*26-1) +'px'}}
                            horisontal={false} speed={0.8}>
-                    {times.map((t,n)=> this.renderItem(t))}
+                    {times.map(this.renderItem)}
                 </ScrollArea>
                 <button className="dtp-img-btn b-bottom"/>
             </TimepickerStyled>
