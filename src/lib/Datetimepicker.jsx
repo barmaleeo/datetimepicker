@@ -155,8 +155,19 @@ export default class Datetimepicker extends Component {
     static getHomeDate = (value) => {
         return moment(value).hour(0).minute(0).second(0).millisecond(0)
     }
-    onChange = (value)=>{
-        this.props.onChange(this.props.name, value)
+    onChange = (val)=>{
+        let value;
+        switch (this.props.format) {
+            case 'mysql':
+                value = val.format('YYYY-MM-DD HH:mm:ss')
+                break;
+            case undefined:
+                value = val;
+                break;
+            default:
+                value = val.format(this.props.format)
+        }
+        this.props.onChange(value)
     }
     onClickHome = () => {
         this.setState({selected: Datetimepicker.getHomeDate(this.state.value)})
@@ -201,7 +212,7 @@ export default class Datetimepicker extends Component {
         }
         return (
             <DatetimepickerStyled className={'input-group' + (p.sm?' input-group-sm':'')}>
-                <input {...p.inputProps} value={p.format?s.value.format(p.format):s.value.toString()}/>
+                <input {...p.inputProps} value={p.displayFormat?s.value.format(p.displayFormat):s.value.toString()}/>
                 <div className="dtp-floating">
                     <div className="dtp-f-date">
                         <div className="dtp-header">

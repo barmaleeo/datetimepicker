@@ -85,8 +85,23 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       month: 0
     });
 
-    _defineProperty(_assertThisInitialized(_this), "onChange", function (value) {
-      _this.props.onChange(_this.props.name, value);
+    _defineProperty(_assertThisInitialized(_this), "onChange", function (val) {
+      var value;
+
+      switch (_this.props.format) {
+        case 'mysql':
+          value = val.format('YYYY-MM-DD HH:mm:ss');
+          break;
+
+        case undefined:
+          value = val;
+          break;
+
+        default:
+          value = val.format(_this.props.format);
+      }
+
+      _this.props.onChange(value);
     });
 
     _defineProperty(_assertThisInitialized(_this), "onClickHome", function () {
@@ -161,7 +176,7 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/_react.default.createElement(DatetimepickerStyled, {
         className: 'input-group' + (p.sm ? ' input-group-sm' : '')
       }, /*#__PURE__*/_react.default.createElement("input", _extends({}, p.inputProps, {
-        value: p.format ? s.value.format(p.format) : s.value.toString()
+        value: p.displayFormat ? s.value.format(p.displayFormat) : s.value.toString()
       })), /*#__PURE__*/_react.default.createElement("div", {
         className: "dtp-floating"
       }, /*#__PURE__*/_react.default.createElement("div", {
