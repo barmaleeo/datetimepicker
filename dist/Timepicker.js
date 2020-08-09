@@ -79,6 +79,9 @@ var Timepicker = /*#__PURE__*/function (_Component) {
       if (this.props.dateMin && i.isBefore(this.props.dateMin)) {
         itemClass += ' i-disabled';
         onClick = null;
+      } else if (this.props.dateMax && i.isAfter(this.props.dateMax)) {
+        itemClass += ' i-disabled';
+        onClick = null;
       }
 
       return /*#__PURE__*/_react.default.createElement("div", {

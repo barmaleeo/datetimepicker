@@ -105,6 +105,9 @@ export default class Timepicker extends Component {
         if(this.props.dateMin && i.isBefore(this.props.dateMin)){
             itemClass += ' i-disabled';
             onClick = null;
+        }else if(this.props.dateMax && i.isAfter(this.props.dateMax)){
+            itemClass += ' i-disabled';
+            onClick = null;
         }
         return (
             <div className={itemClass}
