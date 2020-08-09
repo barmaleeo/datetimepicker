@@ -14,7 +14,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Datetimepicker sm onChange={this.onChange}
-                                data={s} name={value}
+                                data={s} name="value"
                                 format="DD/MM/YYYY HH:mm"
                                 min={moment().subtract(1, 'day')}
                                 max={moment().add(1, 'day')}

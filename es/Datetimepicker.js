@@ -173,6 +173,8 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
         years.push((0, _moment.default)(s.selected).year(_i));
       }
 
+      var max = p.max ? (0, _moment.default)(p.max) : null;
+      var min = p.min ? (0, _moment.default)(p.min) : null;
       return /*#__PURE__*/_react.default.createElement(DatetimepickerStyled, {
         className: 'input-group' + (p.sm ? ' input-group-sm' : '')
       }, /*#__PURE__*/_react.default.createElement("input", _extends({}, p.inputProps, {
@@ -217,15 +219,15 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/_react.default.createElement(_Month.default, {
         value: s.value,
         selected: s.selected,
-        min: p.min,
-        max: p.max,
+        min: min,
+        max: max,
         onChange: this.onChange
       }))), /*#__PURE__*/_react.default.createElement(_Timepicker.default, {
         value: s.value,
         selected: s.value,
         rows: 6,
-        dateMin: p.min,
-        dateMax: p.max,
+        dateMin: min,
+        dateMax: max,
         min: p.timeMin,
         max: p.timeMax,
         step: p.timeStep,

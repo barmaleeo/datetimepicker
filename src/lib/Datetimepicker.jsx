@@ -211,6 +211,8 @@ export default class Datetimepicker extends Component {
         for (let i = s.selected.year() - 50; i<s.selected.year() + 50;i++){
             years.push(moment(s.selected).year(i))
         }
+        const max = p.max?moment(p.max):null;
+        const min = p.min?moment(p.min):null;
         return (
             <DatetimepickerStyled className={'input-group' + (p.sm?' input-group-sm':'')}>
                 <input {...p.inputProps} value={p.displayFormat?s.value.format(p.displayFormat):s.value.toString()}/>
@@ -240,12 +242,12 @@ export default class Datetimepicker extends Component {
                         </div>
                         <div className="dtp-body">
                             <Month value={s.value} selected={s.selected}
-                                   min={p.min} max={p.max}
+                                   min={min} max={max}
                                    onChange={this.onChange}/>
                         </div>
                     </div>
                     <Timepicker value={s.value} selected={s.value} rows={6}
-                                dateMin={p.min} dateMax={p.max}
+                                dateMin={min} dateMax={max}
                                 min={p.timeMin} max={p.timeMax} step={p.timeStep}
                                 onChange={this.onChange}/>
                 </div>
