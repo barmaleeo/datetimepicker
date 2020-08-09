@@ -75,9 +75,9 @@ var Day = /*#__PURE__*/function (_Component) {
       var p = _this.props;
       var date = (0, _moment.default)(p.value).year(p.day.year()).month(p.day.month()).date(p.day.date());
 
-      if (date.isBefore(p.dateMin)) {
+      if (p.dateMin && date.isBefore(p.dateMin)) {
         date = p.dateMin;
-      } else if (date.isAfter(p.dateMax)) {
+      } else if (p.dateMax && date.isAfter(p.dateMax)) {
         date = p.dateMax;
       }
 

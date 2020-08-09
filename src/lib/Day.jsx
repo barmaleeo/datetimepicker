@@ -45,9 +45,9 @@ export default class Day extends Component {
             .year(p.day.year())
             .month(p.day.month())
             .date(p.day.date());
-        if(date.isBefore(p.dateMin)){
+        if(p.dateMin && date.isBefore(p.dateMin)){
             date = p.dateMin;
-        }else if(date.isAfter(p.dateMax)){
+        }else if(p.dateMax && date.isAfter(p.dateMax)){
             date = p.dateMax;
         }
         p.onChange(date, e);
