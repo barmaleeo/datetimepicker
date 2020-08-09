@@ -18,7 +18,7 @@ export default class MonthList extends Component {
     renderItem = (i, n) => {
         const p = this.props;
         let itemClass = 's-option';
-        let onClick = e => {this.setState({selected:i})}
+        let onClick = p.onChange.bind(this, i)
         if(i.isSame(this.props.selected, 'month')){
             itemClass += ' i-current';
             this.currentId = n;

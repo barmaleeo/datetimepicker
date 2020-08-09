@@ -215,7 +215,8 @@ export default class Datetimepicker extends Component {
                                 <span>{s.selected.format('MMMM')}</span>
                                 <i className="dtp-img-btn b-caret"/>
                                 {s.monthActive &&
-                                    <MonthList selected={s.selected} min={min} max={max}/>
+                                    <MonthList selected={s.selected} min={min} max={max}
+                                               onChange={value => {this.setState({selected:value})}}/>
                                 }
                             </div>
                             <div className="f-label f-year"
@@ -224,7 +225,8 @@ export default class Datetimepicker extends Component {
                                 <span>{s.selected.format('YYYY')}</span>
                                 <i className="dtp-img-btn b-caret"/>
                                 {s.yearActive &&
-                                    <YearList selected={s.selected} min={min} max={max}/>
+                                    <YearList selected={s.selected} min={min} max={max}
+                                              onChange={value => {this.setState({selected:value})}}/>
                                 }
                             </div>
                             <button className="dtp-img-btn b-next"

@@ -192,7 +192,12 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       }), s.monthActive && /*#__PURE__*/_react.default.createElement(_MonthList.default, {
         selected: s.selected,
         min: min,
-        max: max
+        max: max,
+        onChange: function onChange(value) {
+          _this2.setState({
+            selected: value
+          });
+        }
       })), /*#__PURE__*/_react.default.createElement("div", {
         className: "f-label f-year",
         onMouseEnter: function onMouseEnter(e) {
@@ -210,7 +215,12 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       }), s.yearActive && /*#__PURE__*/_react.default.createElement(_YearList.default, {
         selected: s.selected,
         min: min,
-        max: max
+        max: max,
+        onChange: function onChange(value) {
+          _this2.setState({
+            selected: value
+          });
+        }
       })), /*#__PURE__*/_react.default.createElement("button", {
         className: "dtp-img-btn b-next",
         onClick: function onClick(e) {

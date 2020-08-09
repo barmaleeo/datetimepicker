@@ -64,12 +64,7 @@ var YearList = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "renderYearItem", function (i, n) {
       var p = _this.props;
       var itemClass = 's-option';
-
-      var onClick = function onClick(e) {
-        _this.setState({
-          selected: i
-        });
-      };
+      var onClick = p.onChange.bind(_assertThisInitialized(_this), i);
 
       if (i.isSame(_this.props.selected, 'year')) {
         itemClass += ' i-current';

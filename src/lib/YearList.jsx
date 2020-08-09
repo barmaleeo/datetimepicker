@@ -15,7 +15,7 @@ export default class YearList extends Component {
     renderYearItem = (i, n) => {
         const p = this.props;
         let itemClass = 's-option';
-        let onClick = e => {this.setState({selected:i})}
+        let onClick = p.onChange.bind(this, i)
         if(i.isSame(this.props.selected, 'year')){
             itemClass += ' i-current';
             this.currentId = n
