@@ -24,7 +24,7 @@ const DatetimepickerStyled = styled.div`
     z-index: 9999;
     box-sizing: border-box;
     display: flex;
-    //display: none;
+    display: none;
     >div:last-child{
       margin-left: 8px;
     }
