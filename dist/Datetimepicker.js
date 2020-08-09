@@ -243,7 +243,7 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
         if (!nextValue) {
           ns.value = (0, _moment.default)().hour(12).minute(15).second(0).millisecond(0);
         } else {
-          ns.value = (0, _moment.default)(nextProps.value);
+          ns.value = (0, _moment.default)(nextValue);
         }
       }
 

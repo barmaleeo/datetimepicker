@@ -141,7 +141,7 @@ export default class Datetimepicker extends Component {
             if(!nextValue){
                 ns.value = moment().hour(12).minute(15).second(0).millisecond(0)
             }else{
-                ns.value = moment(nextProps.value);
+                ns.value = moment(nextValue);
             }
         }
         if(!prevState.selected){
