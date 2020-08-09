@@ -134,14 +134,14 @@ const DatetimepickerStyled = styled.div`
 
 
 export default class Datetimepicker extends Component {
-    state = {value:null, visible: false}
+    state = {value:null, visible: false, top: 0}
     static getDerivedStateFromProps(nextProps, prevState){
         const ns = {}
         //ns.selected = moment(ns.value).hour(0).minute(0).second(0).millisecond(0);
         const nextValue = nextProps.data[nextProps.name];
         if(nextValue !== prevState.value){
             if(!nextValue){
-                ns.value = moment().hour(12).minute(15).second(0).millisecond(0)
+                ns.value = moment().second(0).millisecond(0)
             }else{
                 ns.value = moment(nextValue);
             }
@@ -156,7 +156,8 @@ export default class Datetimepicker extends Component {
         }
     }
     componentDidMount() {
-
+        const height = this.inputRef.size;
+        this.setState({top: height})
     }
 
     static getHomeDate = (value) => {
@@ -190,11 +191,12 @@ export default class Datetimepicker extends Component {
         const min = p.min?moment(p.min):null;
         return (
             <DatetimepickerStyled className={'input-group' + (p.sm?' input-group-sm':'')}>
-                <input {...p.inputProps} value={p.displayFormat?s.value.format(p.displayFormat):s.value.toString()}
+                <input {...p.inputProps} ref={e=>{this.inputRef = e}}
+                       value={p.displayFormat?s.value.format(p.displayFormat):s.value.toString()}
                        onFocus={e=>{this.setState({visible:true})}}
                        onMouseEnter={e=>{this.setState({visible:true})}}/>
                 {s.visible &&
-                <div className="dtp-floating">
+                <div className="dtp-floating" style={{top:s.top+'px'}}>
                     <div className="dtp-f-date">
                         <div className="dtp-header">
                             <button className="dtp-img-btn b-prev"

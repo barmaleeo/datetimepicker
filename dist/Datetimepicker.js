@@ -85,7 +85,8 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "state", {
       value: null,
-      visible: false
+      visible: false,
+      top: 0
     });
 
     _defineProperty(_assertThisInitialized(_this), "onChange", function (val) {
@@ -118,7 +119,12 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
 
   _createClass(Datetimepicker, [{
     key: "componentDidMount",
-    value: function componentDidMount() {}
+    value: function componentDidMount() {
+      var height = this.inputRef.size;
+      this.setState({
+        top: height
+      });
+    }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState, snapshot) {
@@ -136,6 +142,9 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/_react.default.createElement(DatetimepickerStyled, {
         className: 'input-group' + (p.sm ? ' input-group-sm' : '')
       }, /*#__PURE__*/_react.default.createElement("input", _extends({}, p.inputProps, {
+        ref: function ref(e) {
+          _this2.inputRef = e;
+        },
         value: p.displayFormat ? s.value.format(p.displayFormat) : s.value.toString(),
         onFocus: function onFocus(e) {
           _this2.setState({
@@ -148,7 +157,10 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
           });
         }
       })), s.visible && /*#__PURE__*/_react.default.createElement("div", {
-        className: "dtp-floating"
+        className: "dtp-floating",
+        style: {
+          top: s.top + 'px'
+        }
       }, /*#__PURE__*/_react.default.createElement("div", {
         className: "dtp-f-date"
       }, /*#__PURE__*/_react.default.createElement("div", {
@@ -231,7 +243,7 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
 
       if (nextValue !== prevState.value) {
         if (!nextValue) {
-          ns.value = (0, _moment.default)().hour(12).minute(15).second(0).millisecond(0);
+          ns.value = (0, _moment.default)().second(0).millisecond(0);
         } else {
           ns.value = (0, _moment.default)(nextValue);
         }
