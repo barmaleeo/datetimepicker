@@ -6,17 +6,20 @@ import moment from "moment";
 
 export default class YearList extends Component {
     componentDidMount() {
-        this.scrollRef.content.children[this.currentYearId].scrollIntoView({block:'center'});
+        const content = this.scrollRef.content;
+        const current = content.children[this.currentId];
+        const parent = content.parentNode;
+        parent.scrollTop = current.offsetTop - (parent.clientHeight - current.offsetHeight)/2;
     }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        this.scrollRef.content.children[this.currentYearId].scrollIntoView({block:'center'});
-    }
-    currentYearId = 25;
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     this.scrollRef.content.children[this.currentId].scrollIntoView({block:'center'});
+    // }
+    currentId = 25;
     renderYearItem = (i, n) => {
         let itemClass = 's-option';
         if(i.isSame(this.props.selected, 'year')){
             itemClass += ' i-current';
-            this.currentYearId = n
+            this.currentId = n
         }
         return (
             <div key={n} className={itemClass}

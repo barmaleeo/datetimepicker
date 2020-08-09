@@ -6,11 +6,14 @@ import moment from "moment";
 
 export default class MonthList extends Component {
     componentDidMount() {
-        this.scrollRef.content.children[this.currentId].scrollIntoView({block:'center'});
+        const content = this.scrollRef.content;
+        const current = content.children[this.currentId];
+        const parent = content.parentNode;
+        parent.scrollTop = current.offsetTop - (parent.clientHeight - current.offsetHeight)/2;
     }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        this.scrollRef.content.children[this.currentId].scrollIntoView({block:'center'});
-    }
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     this.scrollRef.content.children[this.currentId].scrollIntoView({block:'center'});
+    // }
     currentId = 6;
     renderItem = (i, n) => {
         let itemClass = 's-option';

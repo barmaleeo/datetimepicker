@@ -97,7 +97,10 @@ const TimepickerStyled = styled.div`
 
 export default class Timepicker extends Component {
     componentDidMount() {
-        this.scrollRef.content.children[this.current].scrollIntoView({block:'center'});
+        const content = this.scrollRef.content;
+        const current = content.children[this.current];
+        const parent = content.parentNode;
+        parent.scrollTop = current.offsetTop - (parent.clientHeight - current.offsetHeight)/2;
     }
     current = 0;
     renderItem = (i, n) => {

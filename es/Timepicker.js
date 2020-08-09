@@ -106,9 +106,10 @@ var Timepicker = /*#__PURE__*/function (_Component) {
   _createClass(Timepicker, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.scrollRef.content.children[this.current].scrollIntoView({
-        block: 'center'
-      });
+      var content = this.scrollRef.content;
+      var current = content.children[this.current];
+      var parent = content.parentNode;
+      parent.scrollTop = current.offsetTop - (parent.clientHeight - current.offsetHeight) / 2;
     }
   }, {
     key: "render",

@@ -1,6 +1,6 @@
 {
   "name": "dtpicker",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "main": "dist/Datetimepicker.js",
   "module": "es/Datetimepicker.js",
   "license": "MIT",
