@@ -1,8 +1,8 @@
 {
   "name": "dtpicker",
   "type": "module",
-  "version": "0.0.1",
-  "main": "dist/index.js",
+  "version": "0.0.2",
+  "main": "dist/Datetimepicker.js",
   "license": "MIT",
   "files": [
     "dist"
@@ -33,8 +33,8 @@
     "clean": "rimraf lib dist es",
     "lint": "eslint src",
     "build": "npm run build:commonjs && npm run build:es",
-    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src/lib/Datetimepicker.jsx --out-dir dist",
-    "build:es": "cross-env BABEL_ENV=es babel src/lib/Datetimepicker.jsx --out-dir es",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src/lib --out-dir dist",
+    "build:es": "cross-env BABEL_ENV=es babel src/lib --out-dir es",
     "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development npx webpack",
     "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production npx webpack"
   },

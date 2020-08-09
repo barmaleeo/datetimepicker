@@ -201,7 +201,7 @@ export default class Datetimepicker extends Component {
         }
         return (
             <DatetimepickerStyled className={'input-group' + (p.sm?' input-group-sm':'')}>
-                <input value={p.format?s.value.format(p.format):s.value.toString()}/>
+                <input {...p.inputProps} value={p.format?s.value.format(p.format):s.value.toString()}/>
                 <div className="dtp-floating">
                     <div className="dtp-f-date">
                         <div className="dtp-header">
