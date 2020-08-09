@@ -35,7 +35,7 @@ export default class Month extends Component {
                 <tbody>
                 {weeks.map((w,n) =>
                     <Week key={n} start={w} value={p.value}
-                          dateMin={p.dateMin} dateMax={p.dateMax}
+                          min={p.min} max={p.max}
                           onChange={p.onChange}/>
                 )}
                 </tbody>

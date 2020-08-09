@@ -97,8 +97,8 @@ var Week = /*#__PURE__*/function (_Component) {
           key: k,
           day: i,
           value: p.value,
-          dateMin: p.dateMin,
-          dateMax: p.dateMax,
+          min: p.min,
+          max: p.max,
           onChange: p.onChange
         });
       }));

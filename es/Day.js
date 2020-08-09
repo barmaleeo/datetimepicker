@@ -75,10 +75,10 @@ var Day = /*#__PURE__*/function (_Component) {
       var p = _this.props;
       var date = (0, _moment.default)(p.value).year(p.day.year()).month(p.day.month()).date(p.day.date());
 
-      if (p.dateMin && date.isBefore(p.dateMin)) {
-        date = p.dateMin;
-      } else if (p.dateMax && date.isAfter(p.dateMax)) {
-        date = p.dateMax;
+      if (p.min && date.isBefore(p.min)) {
+        date = p.min;
+      } else if (p.max && date.isAfter(p.max)) {
+        date = p.max;
       }
 
       p.onChange(date, e);
@@ -106,7 +106,7 @@ var Day = /*#__PURE__*/function (_Component) {
 
       var onClick = this.onChange;
 
-      if (p.dateMin && p.day.isBefore(p.dateMin, 'day') || p.dateMax && p.day.isAfter(p.dateMax, 'day')) {
+      if (p.min && p.day.isBefore(p.min, 'day') || p.max && p.day.isAfter(p.max, 'day')) {
         dayClass += delimiter + 'd-disabled';
         onClick = null; //delimiter = ' ';
       }
