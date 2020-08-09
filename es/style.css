@@ -1,0 +1,12 @@
+.rc-trigger-popup{
+
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    z-index: 1050;
+
+}
+
+.rc-trigger-popup.rc-trigger-popup-hidden{
+    display: none;
+}
