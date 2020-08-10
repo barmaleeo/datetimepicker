@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import moment from 'moment';
 import Month from "./Month";
 import Timepicker from "./Timepicker";
-import ScrollArea from 'react-scrollbar';
 import YearList from "./YearList";
 import MonthList from "./MonthList";
 
@@ -90,7 +89,6 @@ const DatetimepickerStyled = styled.div`
         text-align: right;
       }
       .f-l-scrolling{
-        display: none;
         position: absolute;
         background: #fff;
         width: 100%;
@@ -124,9 +122,6 @@ const DatetimepickerStyled = styled.div`
         text-decoration: underline;
         .dtp-img-btn{
           opacity: 1.0;
-        }
-        .f-l-scrolling{
-          display: block;
         }
       }
     }
@@ -187,7 +182,9 @@ export default class Datetimepicker extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log('did update')
     }
-
+    onClickContainer = () => {
+        this.setState({yearActive:false, monthActive:false})
+    }
     render() {
         const p = this.props;
         const s = this.state;
@@ -200,7 +197,8 @@ export default class Datetimepicker extends Component {
                        onFocus={e=>{this.setState({visible:true})}}
                        onMouseEnter={e=>{this.setState({visible:true})}}/>
                 {s.visible &&
-                <div className="dtp-floating" style={{top:s.top+'px'}}>
+                <div className="dtp-floating" style={{top:s.top+'px'}}
+                     onClick={this.onClickContainer}>
                     <div className="dtp-f-date">
                         <div className="dtp-header">
                             <button className="dtp-img-btn b-prev"
@@ -210,8 +208,10 @@ export default class Datetimepicker extends Component {
                             <button className="dtp-img-btn b-home"
                                     onClick={this.onClickHome}/>
                             <div className="f-label h-month"
-                                 onMouseEnter={e => {this.setState({monthActive:true})}}
-                                 onTouchStart={e => {this.setState({monthActive:true})}}>
+                                 onClick={e => {
+                                     this.setState({monthActive:true, yearActive: false})
+                                     e.stopPropagation();
+                                 }}>
                                 <span>{s.selected.format('MMMM')}</span>
                                 <i className="dtp-img-btn b-caret"/>
                                 {s.monthActive &&
@@ -220,8 +220,10 @@ export default class Datetimepicker extends Component {
                                 }
                             </div>
                             <div className="f-label f-year"
-                                 onMouseEnter={e => {this.setState({yearActive:true})}}
-                                 onTouchStart={e => {this.setState({yearActive:true})}}>
+                                 onClick={e => {
+                                     this.setState({yearActive:true, monthActive:false});
+                                     e.stopPropagation();
+                                 }}>
                                 <span>{s.selected.format('YYYY')}</span>
                                 <i className="dtp-img-btn b-caret"/>
                                 {s.yearActive &&
