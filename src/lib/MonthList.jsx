@@ -15,10 +15,14 @@ export default class MonthList extends Component {
     //     this.scrollRef.content.children[this.currentId].scrollIntoView({block:'center'});
     // }
     currentId = 6;
+    onChange = (i, e) => {
+        this.props.onChange(i);
+        e.stopPropagation();
+    }
     renderItem = (i, n) => {
         const p = this.props;
         let itemClass = 's-option';
-        let onClick = p.onChange.bind(this, i)
+        let onClick = this.onChange.bind(this, i);
         if(i.isSame(this.props.selected, 'month')){
             itemClass += ' i-current';
             this.currentId = n;

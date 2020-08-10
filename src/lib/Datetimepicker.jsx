@@ -95,7 +95,7 @@ const DatetimepickerStyled = styled.div`
         height: 155px;
         z-index: 10;
         padding-right: 10px;
-        padding-bottom: 10px;
+        //padding-bottom: 10px;
         border: 1px solid #ccc;
         box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);
         .s-option{
@@ -216,7 +216,7 @@ export default class Datetimepicker extends Component {
                                 <i className="dtp-img-btn b-caret"/>
                                 {s.monthActive &&
                                     <MonthList selected={s.selected} min={min} max={max}
-                                               onChange={value => {this.setState({selected:value})}}/>
+                                               onChange={value => {this.setState({selected:value, monthActive:false})}}/>
                                 }
                             </div>
                             <div className="f-label f-year"
@@ -228,7 +228,7 @@ export default class Datetimepicker extends Component {
                                 <i className="dtp-img-btn b-caret"/>
                                 {s.yearActive &&
                                     <YearList selected={s.selected} min={min} max={max}
-                                              onChange={value => {this.setState({selected:value})}}/>
+                                              onChange={value => {this.setState({selected:value, yearActive: false})}}/>
                                 }
                             </div>
                             <button className="dtp-img-btn b-next"

@@ -61,10 +61,17 @@ var YearList = /*#__PURE__*/function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "currentId", 0);
 
+    _defineProperty(_assertThisInitialized(_this), "onChange", function (i, e) {
+      _this.props.onChange(i);
+
+      e.stopPropagation();
+    });
+
     _defineProperty(_assertThisInitialized(_this), "renderYearItem", function (i, n) {
       var p = _this.props;
       var itemClass = 's-option';
-      var onClick = p.onChange.bind(_assertThisInitialized(_this), i);
+
+      var onClick = _this.onChange.bind(_assertThisInitialized(_this), i);
 
       if (i.isSame(_this.props.selected, 'year')) {
         itemClass += ' i-current';

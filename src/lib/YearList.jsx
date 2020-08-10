@@ -12,10 +12,14 @@ export default class YearList extends Component {
         parent.scrollTop = current.offsetTop - (parent.clientHeight - current.offsetHeight)/2;
     }
     currentId = 0;
+    onChange = (i, e) => {
+        this.props.onChange(i);
+        e.stopPropagation();
+    }
     renderYearItem = (i, n) => {
         const p = this.props;
         let itemClass = 's-option';
-        let onClick = p.onChange.bind(this, i)
+        let onClick = this.onChange.bind(this, i);
         if(i.isSame(this.props.selected, 'year')){
             itemClass += ' i-current';
             this.currentId = n
