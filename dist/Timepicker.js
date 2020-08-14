@@ -100,6 +100,18 @@ var Timepicker = /*#__PURE__*/function (_Component) {
       }, i.format('HH:mm'));
     });
 
+    _defineProperty(_assertThisInitialized(_this), "onClickUp", function () {
+      var content = _this.scrollRef.content;
+      var parent = content.parentNode;
+      parent.scrollTop -= parent.clientHeight;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onClickDown", function () {
+      var content = _this.scrollRef.content;
+      var parent = content.parentNode;
+      parent.scrollTop += parent.clientHeight;
+    });
+
     return _this;
   }
 
@@ -151,7 +163,8 @@ var Timepicker = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/_react.default.createElement(TimepickerStyled, {
         className: ""
       }, /*#__PURE__*/_react.default.createElement("button", {
-        className: "dtp-img-btn b-top"
+        className: "dtp-img-btn b-top",
+        onClick: this.onClickUp
       }), /*#__PURE__*/_react.default.createElement(_reactScrollbar.default, {
         className: "tp-scroll",
         ref: function ref(e) {
@@ -163,7 +176,8 @@ var Timepicker = /*#__PURE__*/function (_Component) {
         horisontal: false,
         stopScrollPropagation: true
       }, times.map(this.renderItem)), /*#__PURE__*/_react.default.createElement("button", {
-        className: "dtp-img-btn b-bottom"
+        className: "dtp-img-btn b-bottom",
+        onClick: this.onClickDown
       }));
     }
   }]);

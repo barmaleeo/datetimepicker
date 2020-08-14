@@ -124,6 +124,16 @@ export default class Timepicker extends Component {
             </div>
         )
     }
+    onClickUp = () => {
+        const content = this.scrollRef.content;
+        const parent = content.parentNode;
+        parent.scrollTop -=  parent.clientHeight;
+    }
+    onClickDown = () => {
+        const content = this.scrollRef.content;
+        const parent = content.parentNode;
+        parent.scrollTop +=  parent.clientHeight;
+    }
 
     render() {
         const p = this.props;
@@ -160,14 +170,16 @@ export default class Timepicker extends Component {
         }
         return (
             <TimepickerStyled className="">
-                <button className="dtp-img-btn b-top" />
+                <button className="dtp-img-btn b-top"
+                        onClick={this.onClickUp}/>
                 <ScrollArea className="tp-scroll"
                             ref={e=>{this.scrollRef = window.scrollRef = e}}
                             style={{maxHeight: (p.rows*26-1) +'px'}}
                            horisontal={false} stopScrollPropagation>
                     {times.map(this.renderItem)}
                 </ScrollArea>
-                <button className="dtp-img-btn b-bottom"/>
+                <button className="dtp-img-btn b-bottom"
+                        onClick={this.onClickDown}/>
             </TimepickerStyled>
         )
     }
