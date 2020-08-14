@@ -53,7 +53,8 @@ export default class MonthList extends Component {
         return (
 
             <ScrollArea className="f-l-scrolling h-months"
-                        ref={e => {this.scrollRef = e}}>
+                        ref={e => {this.scrollRef = e}}
+                        stopScrollPropagation>
                 {items.map(this.renderItem)}
             </ScrollArea>
         )

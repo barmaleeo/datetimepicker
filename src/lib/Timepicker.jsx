@@ -164,7 +164,7 @@ export default class Timepicker extends Component {
                 <ScrollArea className="tp-scroll"
                             ref={e=>{this.scrollRef = window.scrollRef = e}}
                             style={{maxHeight: (p.rows*26-1) +'px'}}
-                           horisontal={false} speed={0.8}>
+                           horisontal={false} stopScrollPropagation>
                     {times.map(this.renderItem)}
                 </ScrollArea>
                 <button className="dtp-img-btn b-bottom"/>
