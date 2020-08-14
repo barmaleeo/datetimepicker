@@ -117,7 +117,8 @@ var YearList = /*#__PURE__*/function (_Component) {
         className: "f-l-scrolling h-months",
         ref: function ref(e) {
           _this2.scrollRef = e;
-        }
+        },
+        stopScrollPropagation: true
       }, years.map(this.renderYearItem));
     }
   }]);

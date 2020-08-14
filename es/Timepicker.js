@@ -161,7 +161,7 @@ var Timepicker = /*#__PURE__*/function (_Component) {
           maxHeight: p.rows * 26 - 1 + 'px'
         },
         horisontal: false,
-        speed: 0.8
+        stopScrollPropagation: true
       }, times.map(this.renderItem)), /*#__PURE__*/_react.default.createElement("button", {
         className: "dtp-img-btn b-bottom"
       }));
