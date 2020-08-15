@@ -175,6 +175,7 @@ export default class Timepicker extends Component {
                 <ScrollArea className="tp-scroll"
                             ref={e=>{this.scrollRef = window.scrollRef = e}}
                             style={{maxHeight: (p.rows*26-1) +'px'}}
+                            smoothScrolling= {true}
                            horisontal={false} stopScrollPropagation>
                     {times.map(this.renderItem)}
                 </ScrollArea>

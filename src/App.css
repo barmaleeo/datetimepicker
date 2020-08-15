@@ -1,7 +1,8 @@
 .App {
   text-align: center;
-  height: 100vh;
+  height: 200vh;
   width: 100vw;
+  padding-top: 30vh;
 }
 
 .App-link {

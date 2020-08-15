@@ -173,6 +173,7 @@ var Timepicker = /*#__PURE__*/function (_Component) {
         style: {
           maxHeight: p.rows * 26 - 1 + 'px'
         },
+        smoothScrolling: true,
         horisontal: false,
         stopScrollPropagation: true
       }, times.map(this.renderItem)), /*#__PURE__*/_react.default.createElement("button", {
