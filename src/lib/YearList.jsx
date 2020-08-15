@@ -49,6 +49,7 @@ export default class YearList extends Component {
 
             <ScrollArea className="f-l-scrolling h-months"
                         ref={e => {this.scrollRef = e}}
+                        smoothScrolling= {true}
                         stopScrollPropagation>
                 {years.map(this.renderYearItem)}
             </ScrollArea>

@@ -121,6 +121,7 @@ var MonthList = /*#__PURE__*/function (_Component) {
         ref: function ref(e) {
           _this2.scrollRef = e;
         },
+        smoothScrolling: true,
         stopScrollPropagation: true
       }, items.map(this.renderItem));
     }
