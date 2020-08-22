@@ -163,25 +163,29 @@ export default class Datetimepicker extends Component {
         return moment(value).hour(0).minute(0).second(0).millisecond(0)
     }
     onChange = (val)=>{
-        let value;
-        switch (this.props.format) {
-            case 'mysql':
-                value = val.format('YYYY-MM-DD HH:mm:ss')
-                break;
-            case undefined:
-                value = val;
-                break;
-            default:
-                value = val.format(this.props.format)
+        if(!this.props.disabled) {
+            let value;
+            switch (this.props.format) {
+                case 'mysql':
+                    value = val.format('YYYY-MM-DD HH:mm:ss')
+                    break;
+                case undefined:
+                    value = val;
+                    break;
+                default:
+                    value = val.format(this.props.format)
+            }
+            this.props.onChange(value)
         }
-        this.props.onChange(value)
     }
     onClickHome = () => {
-        this.setState({selected: Datetimepicker.getHomeDate(this.state.value)})
+        if(!this.props.disabled) {
+            this.setState({selected: Datetimepicker.getHomeDate(this.state.value)})
+        }
     }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log('did update')
-    }
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //
+    // }
     onClickContainer = () => {
         this.setState({yearActive:false, monthActive:false})
     }
@@ -192,10 +196,18 @@ export default class Datetimepicker extends Component {
         const min = p.min?moment(p.min):null;
         return (
             <DatetimepickerStyled className={'input-group' + (p.sm?' input-group-sm':'')}>
-                <input {...p.inputProps} ref={e=>{this.inputRef = e}}
+                <input {...p.inputProps} disabled={p.disabled} ref={e=>{this.inputRef = e}}
                        value={p.displayFormat?s.value.format(p.displayFormat):s.value.toString()}
-                       onFocus={e=>{this.setState({visible:true})}}
-                       onMouseEnter={e=>{this.setState({visible:true})}}/>
+                       onFocus={e=>{
+                           if (!p.disabled) {
+                               this.setState({visible: true})
+                           }
+                       }}
+                       onMouseEnter={e=> {
+                           if (!p.disabled) {
+                               this.setState({visible: true})
+                           }
+                       }}/>
                 {s.visible &&
                 <div className="dtp-floating" style={{top:s.top+'px'}}
                      onClick={this.onClickContainer}>
@@ -209,7 +221,9 @@ export default class Datetimepicker extends Component {
                                     onClick={this.onClickHome}/>
                             <div className="f-label h-month"
                                  onClick={e => {
-                                     this.setState({monthActive:true, yearActive: false})
+                                     if(!p.disabled) {
+                                         this.setState({monthActive: true, yearActive: false})
+                                     }
                                      e.stopPropagation();
                                  }}>
                                 <span>{s.selected.format('MMMM')}</span>
@@ -221,7 +235,9 @@ export default class Datetimepicker extends Component {
                             </div>
                             <div className="f-label f-year"
                                  onClick={e => {
-                                     this.setState({yearActive:true, monthActive:false});
+                                     if(!p.disabled) {
+                                         this.setState({yearActive: true, monthActive: false});
+                                     }
                                      e.stopPropagation();
                                  }}>
                                 <span>{s.selected.format('YYYY')}</span>
@@ -233,7 +249,9 @@ export default class Datetimepicker extends Component {
                             </div>
                             <button className="dtp-img-btn b-next"
                                     onClick={e => {
-                                        this.setState({selected: moment(s.selected).add(1, 'month')})
+                                        if(!p.disabled) {
+                                            this.setState({selected: moment(s.selected).add(1, 'month')})
+                                        }
                                     }}/>
                         </div>
                         <div className="dtp-body">

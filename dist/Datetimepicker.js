@@ -88,28 +88,32 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onChange", function (val) {
-      var value;
+      if (!_this.props.disabled) {
+        var value;
 
-      switch (_this.props.format) {
-        case 'mysql':
-          value = val.format('YYYY-MM-DD HH:mm:ss');
-          break;
+        switch (_this.props.format) {
+          case 'mysql':
+            value = val.format('YYYY-MM-DD HH:mm:ss');
+            break;
 
-        case undefined:
-          value = val;
-          break;
+          case undefined:
+            value = val;
+            break;
 
-        default:
-          value = val.format(_this.props.format);
+          default:
+            value = val.format(_this.props.format);
+        }
+
+        _this.props.onChange(value);
       }
-
-      _this.props.onChange(value);
     });
 
     _defineProperty(_assertThisInitialized(_this), "onClickHome", function () {
-      _this.setState({
-        selected: Datetimepicker.getHomeDate(_this.state.value)
-      });
+      if (!_this.props.disabled) {
+        _this.setState({
+          selected: Datetimepicker.getHomeDate(_this.state.value)
+        });
+      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "onClickContainer", function () {
@@ -131,11 +135,6 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState, snapshot) {
-      console.log('did update');
-    }
-  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -147,19 +146,24 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/_react.default.createElement(DatetimepickerStyled, {
         className: 'input-group' + (p.sm ? ' input-group-sm' : '')
       }, /*#__PURE__*/_react.default.createElement("input", _extends({}, p.inputProps, {
+        disabled: p.disabled,
         ref: function ref(e) {
           _this2.inputRef = e;
         },
         value: p.displayFormat ? s.value.format(p.displayFormat) : s.value.toString(),
         onFocus: function onFocus(e) {
-          _this2.setState({
-            visible: true
-          });
+          if (!p.disabled) {
+            _this2.setState({
+              visible: true
+            });
+          }
         },
         onMouseEnter: function onMouseEnter(e) {
-          _this2.setState({
-            visible: true
-          });
+          if (!p.disabled) {
+            _this2.setState({
+              visible: true
+            });
+          }
         }
       })), s.visible && /*#__PURE__*/_react.default.createElement("div", {
         className: "dtp-floating",
@@ -184,10 +188,12 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       }), /*#__PURE__*/_react.default.createElement("div", {
         className: "f-label h-month",
         onClick: function onClick(e) {
-          _this2.setState({
-            monthActive: true,
-            yearActive: false
-          });
+          if (!p.disabled) {
+            _this2.setState({
+              monthActive: true,
+              yearActive: false
+            });
+          }
 
           e.stopPropagation();
         }
@@ -206,10 +212,12 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       })), /*#__PURE__*/_react.default.createElement("div", {
         className: "f-label f-year",
         onClick: function onClick(e) {
-          _this2.setState({
-            yearActive: true,
-            monthActive: false
-          });
+          if (!p.disabled) {
+            _this2.setState({
+              yearActive: true,
+              monthActive: false
+            });
+          }
 
           e.stopPropagation();
         }
@@ -228,9 +236,11 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       })), /*#__PURE__*/_react.default.createElement("button", {
         className: "dtp-img-btn b-next",
         onClick: function onClick(e) {
-          _this2.setState({
-            selected: (0, _moment.default)(s.selected).add(1, 'month')
-          });
+          if (!p.disabled) {
+            _this2.setState({
+              selected: (0, _moment.default)(s.selected).add(1, 'month')
+            });
+          }
         }
       })), /*#__PURE__*/_react.default.createElement("div", {
         className: "dtp-body"
