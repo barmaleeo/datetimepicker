@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
-import styled from 'styled-components'
-import ScrollArea from "react-scrollbar";
+//import styled from 'styled-components'
+//import ScrollArea from "react-scrollbar";
 import moment from "moment";
 
 
 export default class YearList extends Component {
     componentDidMount() {
-        const content = this.scrollRef.content;
+        const content = this.scrollRef;
         const current = content.children[this.currentId];
-        const parent = content.parentNode;
-        parent.scrollTop = current.offsetTop - (parent.clientHeight - current.offsetHeight)/2;
+        content.scrollTop = current.offsetTop - (content.clientHeight - current.offsetHeight)/2;
     }
     currentId = 0;
     onChange = (i, e) => {
@@ -47,12 +46,10 @@ export default class YearList extends Component {
 
         return (
 
-            <ScrollArea className="f-l-scrolling h-months"
-                        ref={e => {this.scrollRef = e}}
-                        smoothScrolling= {true}
-                        stopScrollPropagation>
+            <div className="f-l-scrolling h-months"
+                        ref={e => {this.scrollRef = e}}>
                 {years.map(this.renderYearItem)}
-            </ScrollArea>
+            </div>
         )
     }
 }

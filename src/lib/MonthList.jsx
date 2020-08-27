@@ -6,10 +6,10 @@ import moment from "moment";
 
 export default class MonthList extends Component {
     componentDidMount() {
-        const content = this.scrollRef.content;
+        const content = this.scrollRef;
         const current = content.children[this.currentId];
-        const parent = content.parentNode;
-        parent.scrollTop = current.offsetTop - (parent.clientHeight - current.offsetHeight)/2;
+        //const parent = content.parentNode;
+        content.scrollTop = current.offsetTop - (content.clientHeight - current.offsetHeight)/2;
     }
     // componentDidUpdate(prevProps, prevState, snapshot) {
     //     this.scrollRef.content.children[this.currentId].scrollIntoView({block:'center'});
@@ -52,12 +52,10 @@ export default class MonthList extends Component {
 
         return (
 
-            <ScrollArea className="f-l-scrolling h-months"
-                        ref={e => {this.scrollRef = e}}
-                        smoothScrolling= {true}
-                        stopScrollPropagation>
+            <div className="f-l-scrolling h-months"
+                        ref={e => {this.scrollRef = e}}>
                 {items.map(this.renderItem)}
-            </ScrollArea>
+            </div>
         )
     }
 }

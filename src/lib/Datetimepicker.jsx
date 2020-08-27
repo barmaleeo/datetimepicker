@@ -89,6 +89,7 @@ const DatetimepickerStyled = styled.div`
         text-align: right;
       }
       .f-l-scrolling{
+        overflow-y: auto;
         position: absolute;
         background: #fff;
         width: 100%;

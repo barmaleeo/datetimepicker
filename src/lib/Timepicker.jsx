@@ -100,6 +100,7 @@ export default class Timepicker extends Component {
          const content = this.scrollRef;
          const current = content.children[this.current];
          content.scrollTop = current.offsetTop - (content.clientHeight - current.offsetHeight)/2;
+         content.click()
     }
     current = 0;
     renderItem = (i, n) => {
@@ -166,12 +167,12 @@ export default class Timepicker extends Component {
             time = moment(time).add(p.step>0?p.step:60, 'minutes');
         }
         return (
-            <TimepickerStyled className="">
+            <TimepickerStyled>
                 <button className="dtp-img-btn b-top"
                         onClick={this.onClickUp}/>
                 <div className="tp-scroll"
-                            ref={e=>{this.scrollRef = window.scrollRef = e}}
-                            style={{height: (p.rows*26-1) +'px'}}>
+                     ref={e=>{this.scrollRef  = e}}
+                     style={{height: (p.rows*26-1) +'px'}}>
                     {times.map(this.renderItem)}
                 </div>
                 <button className="dtp-img-btn b-bottom"
