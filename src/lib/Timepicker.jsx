@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import styled from 'styled-components'
 import moment from 'moment';
-import ScrollArea from 'react-scrollbar';
 
 const TimepickerStyled = styled.div`
   display: flex;
@@ -64,6 +63,7 @@ const TimepickerStyled = styled.div`
   }
   .tp-scroll{
     width: 56px;
+    overflow-y: auto;
   }
   .tp-item{
     background: #f5f5f5;
@@ -97,10 +97,9 @@ const TimepickerStyled = styled.div`
 
 export default class Timepicker extends Component {
     componentDidMount() {
-        const content = this.scrollRef.content;
-        const current = content.children[this.current];
-        const parent = content.parentNode;
-        parent.scrollTop = current.offsetTop - (parent.clientHeight - current.offsetHeight)/2;
+         const content = this.scrollRef;
+         const current = content.children[this.current];
+         content.scrollTop = current.offsetTop - (content.clientHeight - current.offsetHeight)/2;
     }
     current = 0;
     renderItem = (i, n) => {
@@ -125,14 +124,12 @@ export default class Timepicker extends Component {
         )
     }
     onClickUp = () => {
-        const content = this.scrollRef.content;
-        const parent = content.parentNode;
-        parent.scrollTop -=  parent.clientHeight;
+        const content = this.scrollRef;
+        content.scrollTop -=  content.clientHeight;
     }
     onClickDown = () => {
-        const content = this.scrollRef.content;
-        const parent = content.parentNode;
-        parent.scrollTop +=  parent.clientHeight;
+        const content = this.scrollRef;
+        content.scrollTop +=  content.clientHeight;
     }
 
     render() {
@@ -172,13 +169,11 @@ export default class Timepicker extends Component {
             <TimepickerStyled className="">
                 <button className="dtp-img-btn b-top"
                         onClick={this.onClickUp}/>
-                <ScrollArea className="tp-scroll"
+                <div className="tp-scroll"
                             ref={e=>{this.scrollRef = window.scrollRef = e}}
-                            style={{maxHeight: (p.rows*26-1) +'px'}}
-                            smoothScrolling= {true}
-                           horisontal={false} stopScrollPropagation>
+                            style={{height: (p.rows*26-1) +'px'}}>
                     {times.map(this.renderItem)}
-                </ScrollArea>
+                </div>
                 <button className="dtp-img-btn b-bottom"
                         onClick={this.onClickDown}/>
             </TimepickerStyled>
