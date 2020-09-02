@@ -46,7 +46,7 @@ export default class YearList extends Component {
 
         return (
 
-            <div className="f-l-scrolling h-months"
+            <div className="f-l-scrolling h-years"
                         ref={e => {this.scrollRef = e}}>
                 {years.map(this.renderYearItem)}
             </div>

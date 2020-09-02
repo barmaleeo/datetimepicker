@@ -109,7 +109,7 @@ var YearList = /*#__PURE__*/function (_Component) {
       }
 
       return /*#__PURE__*/_react.default.createElement("div", {
-        className: "f-l-scrolling h-months",
+        className: "f-l-scrolling h-years",
         ref: function ref(e) {
           _this2.scrollRef = e;
         }

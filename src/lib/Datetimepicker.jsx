@@ -119,6 +119,9 @@ const DatetimepickerStyled = styled.div`
           }
         }
       }
+      &.h-years{
+        width: 65px;
+      }
       &:hover{
         text-decoration: underline;
         .dtp-img-btn{
