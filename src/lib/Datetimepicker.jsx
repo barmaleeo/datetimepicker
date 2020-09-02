@@ -13,6 +13,7 @@ const DatetimepickerStyled = styled.div`
   font-size: 14px;
   .dtp-floating{
     position: absolute;
+    width: 307px;
     box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);
     background: #fff;
     border: 1px solid #ccc;
@@ -24,7 +25,6 @@ const DatetimepickerStyled = styled.div`
     padding-top: 2px;
     z-index: 9999;
     box-sizing: border-box;
-    display: flex;
     display: none;
     >div:last-child{
       margin-left: 8px;

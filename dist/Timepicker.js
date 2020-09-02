@@ -117,6 +117,7 @@ var Timepicker = /*#__PURE__*/function (_Component) {
       var content = this.scrollRef;
       var current = content.children[this.current];
       content.scrollTop = current.offsetTop - (content.clientHeight - current.offsetHeight) / 2;
+      content.click();
     }
   }, {
     key: "render",
@@ -155,15 +156,13 @@ var Timepicker = /*#__PURE__*/function (_Component) {
         time = (0, _moment.default)(time).add(p.step > 0 ? p.step : 60, 'minutes');
       }
 
-      return /*#__PURE__*/_react.default.createElement(TimepickerStyled, {
-        className: ""
-      }, /*#__PURE__*/_react.default.createElement("button", {
+      return /*#__PURE__*/_react.default.createElement(TimepickerStyled, null, /*#__PURE__*/_react.default.createElement("button", {
         className: "dtp-img-btn b-top",
         onClick: this.onClickUp
       }), /*#__PURE__*/_react.default.createElement("div", {
         className: "tp-scroll",
         ref: function ref(e) {
-          _this2.scrollRef = window.scrollRef = e;
+          _this2.scrollRef = e;
         },
         style: {
           height: p.rows * 26 - 1 + 'px'

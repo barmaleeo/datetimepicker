@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import styled from 'styled-components'
-import ScrollArea from "react-scrollbar";
+//import styled from 'styled-components'
+//import ScrollArea from "react-scrollbar";
 import moment from "moment";
 
 

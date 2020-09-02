@@ -7,10 +7,6 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _reactScrollbar = _interopRequireDefault(require("react-scrollbar"));
-
 var _moment = _interopRequireDefault(require("moment"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -96,10 +92,9 @@ var YearList = /*#__PURE__*/function (_Component) {
   _createClass(YearList, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var content = this.scrollRef.content;
+      var content = this.scrollRef;
       var current = content.children[this.currentId];
-      var parent = content.parentNode;
-      parent.scrollTop = current.offsetTop - (parent.clientHeight - current.offsetHeight) / 2;
+      content.scrollTop = current.offsetTop - (content.clientHeight - current.offsetHeight) / 2;
     }
   }, {
     key: "render",
@@ -113,13 +108,11 @@ var YearList = /*#__PURE__*/function (_Component) {
         years.push((0, _moment.default)(p.selected).year(i));
       }
 
-      return /*#__PURE__*/_react.default.createElement(_reactScrollbar.default, {
+      return /*#__PURE__*/_react.default.createElement("div", {
         className: "f-l-scrolling h-months",
         ref: function ref(e) {
           _this2.scrollRef = e;
-        },
-        smoothScrolling: true,
-        stopScrollPropagation: true
+        }
       }, years.map(this.renderYearItem));
     }
   }]);
