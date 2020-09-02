@@ -99,6 +99,10 @@ const DatetimepickerStyled = styled.div`
         //padding-bottom: 10px;
         border: 1px solid #ccc;
         box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);
+        &.h-years{
+          width: 65px;
+        }
+
         .s-option{
           padding: 2px 10px 2px 5px;
 
@@ -118,9 +122,6 @@ const DatetimepickerStyled = styled.div`
             opacity: 0.5;
           }
         }
-      }
-      &.h-years{
-        width: 65px;
       }
       &:hover{
         text-decoration: underline;
