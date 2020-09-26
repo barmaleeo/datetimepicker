@@ -153,6 +153,17 @@ export default class Datetimepicker extends Component {
         if(!prevState.selected){
             ns.selected = Datetimepicker.getHomeDate(ns.value);
         }
+        const name = nextProps.name;
+        if(nextProps.request && prevState.progress !== nextProps.data[name+'Change']){
+            ns.progress = nextProps.data[name+'Change'];
+            if(nextProps.data[name + 'Change']){
+                ns.color = 'yellow';
+            }else if(nextProps.data[name+'ChangeErr']){
+                ns.color = '#FFD1D1'
+            }else{
+                ns.color = 'lightgreen'
+            }
+        }
         if(ns !== {}){
             return ns;
         }else {
@@ -188,9 +199,16 @@ export default class Datetimepicker extends Component {
             this.setState({selected: Datetimepicker.getHomeDate(this.state.value)})
         }
     }
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //
-    // }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const p = this.props;
+        if(prevState.color
+            && !p.data[prevProps.name+'Change']
+            && prevState.progress){
+            setTimeout(()=>{
+                this.setState({color: null})
+            }, 300)
+        }
+    }
     onClickContainer = () => {
         this.setState({yearActive:false, monthActive:false})
     }
@@ -199,9 +217,16 @@ export default class Datetimepicker extends Component {
         const s = this.state;
         const max = p.max?moment(p.max):null;
         const min = p.min?moment(p.min):null;
+        const inputProps = {...p.inputProps};
+        if(s.color){
+            if(!inputProps.style){
+                inputProps.style = {};
+            }
+            inputProps.style.backgroundColor = s.color;
+        }
         return (
             <DatetimepickerStyled className={'input-group' + (p.sm?' input-group-sm':'')}>
-                <input {...p.inputProps} disabled={p.disabled} ref={e=>{this.inputRef = e}}
+                <input {...inputProps} disabled={p.disabled} ref={e=>{this.inputRef = e}}
                        value={p.displayFormat?s.value.format(p.displayFormat):s.value.toString()}
                        onFocus={e=>{
                            if (!p.disabled) {
@@ -223,6 +248,7 @@ export default class Datetimepicker extends Component {
                                         this.setState({selected: moment(s.selected).subtract(1, 'month')})
                                     }}/>
                             <button className="dtp-img-btn b-home"
+                                    disabled={p.progress}
                                     onClick={this.onClickHome}/>
                             <div className="f-label h-month"
                                  onClick={e => {
@@ -234,7 +260,9 @@ export default class Datetimepicker extends Component {
                                 <span>{s.selected.format('MMMM')}</span>
                                 <i className="dtp-img-btn b-caret"/>
                                 {s.monthActive &&
-                                    <MonthList selected={s.selected} min={min} max={max}
+                                    <MonthList selected={s.selected}
+                                               disabled={s.progress}
+                                               min={min} max={max}
                                                onChange={value => {this.setState({selected:value, monthActive:false})}}/>
                                 }
                             </div>
@@ -248,11 +276,14 @@ export default class Datetimepicker extends Component {
                                 <span>{s.selected.format('YYYY')}</span>
                                 <i className="dtp-img-btn b-caret"/>
                                 {s.yearActive &&
-                                    <YearList selected={s.selected} min={min} max={max}
+                                    <YearList selected={s.selected}
+                                              disabled={s.progress}
+                                              min={min} max={max}
                                               onChange={value => {this.setState({selected:value, yearActive: false})}}/>
                                 }
                             </div>
                             <button className="dtp-img-btn b-next"
+                                    disabled={s.progress}
                                     onClick={e => {
                                         if(!p.disabled) {
                                             this.setState({selected: moment(s.selected).add(1, 'month')})
@@ -261,11 +292,13 @@ export default class Datetimepicker extends Component {
                         </div>
                         <div className="dtp-body">
                             <Month value={s.value} selected={s.selected}
+                                   disabled={s.progress}
                                    min={min} max={max}
                                    onChange={this.onChange}/>
                         </div>
                     </div>
                     <Timepicker value={s.value} selected={s.value} rows={6}
+                                disabled={s.progress}
                                 dateMin={min} dateMax={max}
                                 min={p.timeMin} max={p.timeMax} step={p.timeStep}
                                 onChange={this.onChange}/>

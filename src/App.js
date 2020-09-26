@@ -10,7 +10,19 @@ class App extends Component {
     state = {value: moment().minute(45).second(0).millisecond(0)}
     onChange = (value) => {
         console.log(value)
-        this.setState({value: value});
+        this.setState({
+            value: moment(value, 'DD/MM/YYYY HH:mm'),
+            valueChange:true,
+            valueChangeErr:false,
+        });
+        setTimeout(()=>{
+            this.setState({
+                value: moment(value, 'DD/MM/YYYY HH:mm'),
+                valueChange:false,
+                valueChangeErr:false,
+            });
+
+        }, 1000)
     }
     render() {
         const s= this.state;
@@ -18,6 +30,7 @@ class App extends Component {
             <div className="App">
                 <Datetimepicker sm onChange={this.onChange}
                                 data={s} name="value"
+                                request
                                 format="DD/MM/YYYY HH:mm"
                                 min={moment().subtract(1, 'day')}
                                 max={moment().add(1, 'day')}

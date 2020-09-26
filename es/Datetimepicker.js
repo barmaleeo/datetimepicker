@@ -29,6 +29,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -135,32 +139,58 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState, snapshot) {
+      var _this2 = this;
+
+      var p = this.props;
+
+      if (prevState.color && !p.data[prevProps.name + 'Change'] && prevState.progress) {
+        setTimeout(function () {
+          _this2.setState({
+            color: null
+          });
+        }, 300);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var p = this.props;
       var s = this.state;
       var max = p.max ? (0, _moment.default)(p.max) : null;
       var min = p.min ? (0, _moment.default)(p.min) : null;
+
+      var inputProps = _objectSpread({}, p.inputProps);
+
+      if (s.color) {
+        if (!inputProps.style) {
+          inputProps.style = {};
+        }
+
+        inputProps.style.backgroundColor = s.color;
+      }
+
       return /*#__PURE__*/_react.default.createElement(DatetimepickerStyled, {
         className: 'input-group' + (p.sm ? ' input-group-sm' : '')
-      }, /*#__PURE__*/_react.default.createElement("input", _extends({}, p.inputProps, {
+      }, /*#__PURE__*/_react.default.createElement("input", _extends({}, inputProps, {
         disabled: p.disabled,
         ref: function ref(e) {
-          _this2.inputRef = e;
+          _this3.inputRef = e;
         },
         value: p.displayFormat ? s.value.format(p.displayFormat) : s.value.toString(),
         onFocus: function onFocus(e) {
           if (!p.disabled) {
-            _this2.setState({
+            _this3.setState({
               visible: true
             });
           }
         },
         onMouseEnter: function onMouseEnter(e) {
           if (!p.disabled) {
-            _this2.setState({
+            _this3.setState({
               visible: true
             });
           }
@@ -178,18 +208,19 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/_react.default.createElement("button", {
         className: "dtp-img-btn b-prev",
         onClick: function onClick(e) {
-          _this2.setState({
+          _this3.setState({
             selected: (0, _moment.default)(s.selected).subtract(1, 'month')
           });
         }
       }), /*#__PURE__*/_react.default.createElement("button", {
         className: "dtp-img-btn b-home",
+        disabled: p.progress,
         onClick: this.onClickHome
       }), /*#__PURE__*/_react.default.createElement("div", {
         className: "f-label h-month",
         onClick: function onClick(e) {
           if (!p.disabled) {
-            _this2.setState({
+            _this3.setState({
               monthActive: true,
               yearActive: false
             });
@@ -201,10 +232,11 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
         className: "dtp-img-btn b-caret"
       }), s.monthActive && /*#__PURE__*/_react.default.createElement(_MonthList.default, {
         selected: s.selected,
+        disabled: s.progress,
         min: min,
         max: max,
         onChange: function onChange(value) {
-          _this2.setState({
+          _this3.setState({
             selected: value,
             monthActive: false
           });
@@ -213,7 +245,7 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
         className: "f-label f-year",
         onClick: function onClick(e) {
           if (!p.disabled) {
-            _this2.setState({
+            _this3.setState({
               yearActive: true,
               monthActive: false
             });
@@ -225,19 +257,21 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
         className: "dtp-img-btn b-caret"
       }), s.yearActive && /*#__PURE__*/_react.default.createElement(_YearList.default, {
         selected: s.selected,
+        disabled: s.progress,
         min: min,
         max: max,
         onChange: function onChange(value) {
-          _this2.setState({
+          _this3.setState({
             selected: value,
             yearActive: false
           });
         }
       })), /*#__PURE__*/_react.default.createElement("button", {
         className: "dtp-img-btn b-next",
+        disabled: s.progress,
         onClick: function onClick(e) {
           if (!p.disabled) {
-            _this2.setState({
+            _this3.setState({
               selected: (0, _moment.default)(s.selected).add(1, 'month')
             });
           }
@@ -247,6 +281,7 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/_react.default.createElement(_Month.default, {
         value: s.value,
         selected: s.selected,
+        disabled: s.progress,
         min: min,
         max: max,
         onChange: this.onChange
@@ -254,6 +289,7 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
         value: s.value,
         selected: s.value,
         rows: 6,
+        disabled: s.progress,
         dateMin: min,
         dateMax: max,
         min: p.timeMin,
@@ -279,6 +315,20 @@ var Datetimepicker = /*#__PURE__*/function (_Component) {
 
       if (!prevState.selected) {
         ns.selected = Datetimepicker.getHomeDate(ns.value);
+      }
+
+      var name = nextProps.name;
+
+      if (nextProps.request && prevState.progress !== nextProps.data[name + 'Change']) {
+        ns.progress = nextProps.data[name + 'Change'];
+
+        if (nextProps.data[name + 'Change']) {
+          ns.color = 'yellow';
+        } else if (nextProps.data[name + 'ChangeErr']) {
+          ns.color = '#FFD1D1';
+        } else {
+          ns.color = 'lightgreen';
+        }
       }
 
       if (ns !== {}) {

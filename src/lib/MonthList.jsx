@@ -27,7 +27,8 @@ export default class MonthList extends Component {
             itemClass += ' i-current';
             this.currentId = n;
         }
-        if((p.min && i.isBefore(p.min, 'month'))
+        if(p.disabled
+            || (p.min && i.isBefore(p.min, 'month'))
             || (p.max && i.isAfter(p.max, 'month'))
         ){
             itemClass += ' i-disabled';

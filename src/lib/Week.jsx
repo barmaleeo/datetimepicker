@@ -39,6 +39,7 @@ export default class Week extends Component {
                 {days.map((i, k) => p.head?
                     <DayHeadStyled key={k}>{i.format('ddd')}</DayHeadStyled>:
                     <Day key={k} day={i} value={p.value}
+                         disabled={p.disabled}
                          min={p.min} max={p.max}
                          onChange={p.onChange}/>)
                 }

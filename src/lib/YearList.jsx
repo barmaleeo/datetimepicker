@@ -23,7 +23,8 @@ export default class YearList extends Component {
             itemClass += ' i-current';
             this.currentId = n
         }
-        if((p.min && i.isBefore(p.min, 'year'))
+        if(p.disabled
+            || (p.min && i.isBefore(p.min, 'year'))
             || (p.max && i.isAfter(p.max, 'year'))
         ){
             itemClass += ' i-disabled';

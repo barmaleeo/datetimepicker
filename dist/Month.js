@@ -97,6 +97,7 @@ var Month = /*#__PURE__*/function (_Component) {
           key: n,
           start: w,
           value: p.value,
+          disabled: p.disabled,
           min: p.min,
           max: p.max,
           onChange: p.onChange

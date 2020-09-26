@@ -65,14 +65,16 @@ export default class Day extends Component {
             delimiter = ' ';
         }
         let onClick = this.onChange;
-        if((p.min && p.day.isBefore(p.min, 'day'))
+        if(p.disabled
+            || (p.min && p.day.isBefore(p.min, 'day'))
             || (p.max && p.day.isAfter(p.max, 'day'))){
             dayClass += delimiter + 'd-disabled';
             onClick = null;
             //delimiter = ' ';
         }
         return (
-            <DayStyled className={dayClass} onClick={onClick}>
+            <DayStyled className={dayClass}
+                       onClick={onClick}>
                 {p.day.date()}
             </DayStyled>
         )

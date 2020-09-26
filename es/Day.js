@@ -106,7 +106,7 @@ var Day = /*#__PURE__*/function (_Component) {
 
       var onClick = this.onChange;
 
-      if (p.min && p.day.isBefore(p.min, 'day') || p.max && p.day.isAfter(p.max, 'day')) {
+      if (p.disabled || p.min && p.day.isBefore(p.min, 'day') || p.max && p.day.isAfter(p.max, 'day')) {
         dayClass += delimiter + 'd-disabled';
         onClick = null; //delimiter = ' ';
       }

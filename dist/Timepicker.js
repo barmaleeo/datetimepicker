@@ -83,10 +83,7 @@ var Timepicker = /*#__PURE__*/function (_Component) {
         _this.current = n;
       }
 
-      if (_this.props.dateMin && i.isBefore(_this.props.dateMin)) {
-        itemClass += ' i-disabled';
-        onClick = null;
-      } else if (_this.props.dateMax && i.isAfter(_this.props.dateMax)) {
+      if (_this.props.disabled || _this.props.dateMin && i.isBefore(_this.props.dateMin) || _this.props.dateMax && i.isAfter(_this.props.dateMax)) {
         itemClass += ' i-disabled';
         onClick = null;
       }

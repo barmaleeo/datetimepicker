@@ -74,7 +74,7 @@ var MonthList = /*#__PURE__*/function (_Component) {
         _this.currentId = n;
       }
 
-      if (p.min && i.isBefore(p.min, 'month') || p.max && i.isAfter(p.max, 'month')) {
+      if (p.disabled || p.min && i.isBefore(p.min, 'month') || p.max && i.isAfter(p.max, 'month')) {
         itemClass += ' i-disabled';
         onClick = null;
       }

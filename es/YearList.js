@@ -74,7 +74,7 @@ var YearList = /*#__PURE__*/function (_Component) {
         _this.currentId = n;
       }
 
-      if (p.min && i.isBefore(p.min, 'year') || p.max && i.isAfter(p.max, 'year')) {
+      if (p.disabled || p.min && i.isBefore(p.min, 'year') || p.max && i.isAfter(p.max, 'year')) {
         itemClass += ' i-disabled';
         onClick = null;
       }
